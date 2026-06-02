@@ -4,38 +4,58 @@ import { motion } from "framer-motion";
 
 const categories = [
   {
-    title: "Languages",
-    skills: ["Python", "TypeScript", "SQL", "Bash"],
+    icon: "🤖",
+    title: "Agentic AI & LLM Systems",
+    skills: [
+      "Multi-agent orchestration (LangGraph, LangChain, CrewAI)",
+      "RAG pipelines, vector databases, tool use, MCP",
+      "LLM evaluation, fine-tuning, prompt engineering",
+    ],
   },
   {
-    title: "AI / ML",
-    skills: ["LLMs", "RAG", "Agents", "Fine-tuning", "Embeddings", "RLHF"],
+    icon: "🧠",
+    title: "AI / ML Engineering",
+    skills: [
+      "Python (FastAPI), PyTorch, Hugging Face Transformers",
+      "NLP, forecasting, classification, deep learning",
+      "Real-time inference APIs and model deployment",
+    ],
   },
   {
-    title: "Frameworks & Libraries",
-    skills: ["LangChain", "LlamaIndex", "PyTorch", "FastAPI", "Next.js", "Hugging Face"],
+    icon: "⚙️",
+    title: "ML Platforms & MLOps",
+    skills: [
+      "End-to-end ML pipelines — ingestion, training, deployment",
+      "CI/CD, Docker, Kubernetes, Terraform",
+      "AWS, GCP, Azure — scalable AI infrastructure",
+    ],
   },
   {
-    title: "Infrastructure",
-    skills: ["Docker", "AWS", "GCP", "Kubernetes", "PostgreSQL", "Redis"],
+    icon: "📊",
+    title: "Data & Infrastructure",
+    skills: [
+      "PostgreSQL, Redis, pgvector, BigQuery",
+      "Data pipelines, ETL, multi-source integration",
+      "Observability, cost tracking, latency optimisation",
+    ],
   },
 ];
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-32 px-8 md:px-16 lg:px-32">
-      <div className="max-w-5xl mx-auto">
-        <motion.p
-          className="text-xs uppercase tracking-[0.25em] text-gray-500 mb-16"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+    <section id="skills" className="py-32 px-6 bg-[#f5f3ff]">
+      <div className="max-w-6xl mx-auto">
+        <motion.h2
+          className="text-center text-3xl md:text-4xl font-bold uppercase tracking-widest text-violet-600 mb-20"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
           Skills
-        </motion.p>
+        </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-6">
           {categories.map((cat, i) => (
             <motion.div
               key={cat.title}
@@ -43,20 +63,18 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="bg-white rounded-2xl p-8 shadow-sm border border-violet-100 hover:shadow-md transition-shadow"
             >
-              <p className="text-xs uppercase tracking-widest text-gray-600 mb-4">
-                {cat.title}
-              </p>
-              <div className="flex flex-wrap gap-2">
+              <span className="text-3xl mb-4 block">{cat.icon}</span>
+              <h3 className="text-gray-900 font-bold text-lg mb-4">{cat.title}</h3>
+              <ul className="space-y-2">
                 {cat.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1.5 bg-[#111] border border-gray-800 text-gray-300 text-sm rounded-lg hover:border-gray-600 hover:text-white transition-colors"
-                  >
+                  <li key={skill} className="flex items-start gap-2 text-gray-500 text-sm leading-relaxed">
+                    <span className="text-violet-400 mt-0.5 shrink-0">•</span>
                     {skill}
-                  </span>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </motion.div>
           ))}
         </div>
