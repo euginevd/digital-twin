@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 
 const services = [
   {
-    number: "1",
+    ico: "⚡",
     badge: "Build",
-    icon: "⚡",
+    num: "1",
     title: "LLM Application Development",
     description:
       "End-to-end development of production LLM applications — RAG systems, chatbots, document intelligence, and API-first AI products.",
@@ -14,9 +14,9 @@ const services = [
       "A robust, production-ready LLM application — evaluated, monitored, and ready to scale.",
   },
   {
-    number: "2",
+    ico: "🏗️",
     badge: "Design",
-    icon: "🏗️",
+    num: "2",
     title: "Agentic Systems Architecture",
     description:
       "Design and implementation of multi-agent systems with tool use, shared memory, structured outputs, and orchestration frameworks.",
@@ -24,9 +24,9 @@ const services = [
       "Reliable agent pipelines that automate complex workflows end-to-end.",
   },
   {
-    number: "3",
+    ico: "☁️",
     badge: "Scale",
-    icon: "☁️",
+    num: "3",
     title: "AI Infrastructure & MLOps",
     description:
       "ML platform engineering — data pipelines, training infrastructure, deployment, CI/CD, and model lifecycle management.",
@@ -34,53 +34,59 @@ const services = [
       "Fully automated, monitored ML systems running reliably in production.",
   },
   {
-    number: "4",
+    ico: "🎯",
     badge: "Optimise",
-    icon: "🎯",
+    num: "4",
     title: "LLM Evaluation & Optimisation",
     description:
-      "Performance evaluation, cost reduction, latency optimisation, and observability for LLM systems already in production.",
+      "Performance evaluation, cost reduction, latency optimisation, and observability for LLM systems in production.",
     outcome:
-      "Faster, cheaper, more accurate AI — reduced inference cost and improved output quality.",
+      "Faster, cheaper, more accurate AI — reduced inference cost, improved output quality.",
   },
 ];
 
 export default function Services() {
   return (
-    <section id="services" className="py-32 px-6 bg-[#f5f3ff]">
-      <div className="max-w-6xl mx-auto">
-        <motion.h2
-          className="text-center text-3xl md:text-4xl font-bold uppercase tracking-widest text-violet-600 mb-20"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          What I Deliver
-        </motion.h2>
+    <section id="services" className="l-section l-alt">
+      <div className="l-wrap">
+        <div className="ds-sec-head">
+          <span className="idx">03</span>
+          <h2 className="t-h2">What I deliver</h2>
+          <span className="t-mono t-faint">services & outcomes</span>
+        </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-4">
           {services.map((s, i) => (
             <motion.div
               key={s.title}
+              className="ds-card ds-card-hover"
+              style={{ display: "flex", flexDirection: "column", gap: "var(--s-4)" }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-white rounded-2xl p-8 shadow-sm border border-violet-100 hover:shadow-md transition-shadow"
             >
-              <div className="flex items-start justify-between mb-4">
-                <span className="text-3xl">{s.icon}</span>
-                <span className="px-3 py-1 bg-violet-600 text-white text-xs font-semibold rounded-full">
-                  {s.number}. {s.badge}
+              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
+                <span style={{ fontSize: "1.6rem" }}>{s.ico}</span>
+                <span className="ds-chip is-accent ds-btn-sm">
+                  {s.num}. {s.badge}
                 </span>
               </div>
 
-              <h3 className="text-gray-900 font-bold text-lg mb-3">{s.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed mb-5">{s.description}</p>
+              <h3 className="t-h3">{s.title}</h3>
+              <p className="t-muted" style={{ fontSize: "var(--fs-sm)", lineHeight: 1.65 }}>{s.description}</p>
 
-              <div className="border-l-4 border-violet-500 bg-violet-50 pl-4 py-3 rounded-r-lg">
-                <p className="text-gray-700 text-sm font-medium leading-snug">{s.outcome}</p>
+              <div
+                style={{
+                  borderLeft: "3px solid var(--accent)",
+                  paddingLeft: "var(--s-4)",
+                  paddingBlock: "var(--s-3)",
+                  background: "var(--accent-soft)",
+                  borderRadius: "0 var(--r-sm) var(--r-sm) 0",
+                  marginTop: "auto",
+                }}
+              >
+                <p style={{ fontSize: "var(--fs-sm)", fontWeight: 600, lineHeight: 1.45, color: "var(--fg)" }}>{s.outcome}</p>
               </div>
             </motion.div>
           ))}

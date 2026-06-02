@@ -3,15 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
-function Counter({
-  target,
-  suffix = "+",
-  label,
-}: {
-  target: number;
-  suffix?: string;
-  label: string;
-}) {
+function Counter({ target, suffix = "+", label }: { target: number; suffix?: string; label: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
@@ -32,55 +24,51 @@ function Counter({
   }, [isInView, target]);
 
   return (
-    <div ref={ref} className="text-center">
-      <p className="text-4xl font-bold text-gray-900 tabular-nums">
-        {count}
-        <span className="text-violet-500">{suffix}</span>
+    <div ref={ref}>
+      <p style={{ fontFamily: "var(--font-display)", fontSize: "var(--fs-2xl)", fontWeight: 600, letterSpacing: "-0.03em", color: "var(--accent)", lineHeight: 1 }}>
+        {count}<span style={{ color: "var(--accent)" }}>{suffix}</span>
       </p>
-      <p className="text-[10px] uppercase tracking-widest text-gray-500 mt-2">{label}</p>
+      <p className="t-mono t-faint" style={{ marginTop: "var(--s-2)" }}>{label}</p>
     </div>
   );
 }
 
 const terminalLines = [
-  { type: "cmd", prompt: "eugine@au:~$", text: "whoami" },
+  { type: "cmd", text: "whoami" },
   { type: "out", text: "AI Engineer · Sydney, Australia" },
-  { type: "cmd", prompt: "eugine@au:~$", text: "mission" },
+  { type: "cmd", text: "mission" },
   { type: "out", text: "Bridge research to production-grade AI" },
-  { type: "cmd", prompt: "eugine@au:~$", text: "impact" },
-  { type: "out", text: "Scalable, reliable, cost-efficient AI" },
-  { type: "cmd", prompt: "eugine@au:~$", text: "mode" },
+  { type: "cmd", text: "impact" },
+  { type: "out", text: "Scalable, reliable, cost-efficient systems" },
+  { type: "cmd", text: "mode" },
   { type: "out", text: "Open to Freelance · Remote · Global" },
   { type: "cursor" },
 ];
 
 export default function About() {
   return (
-    <section id="about" className="py-32 px-6 bg-[#f5f3ff]">
-      <div className="max-w-6xl mx-auto">
-        <motion.h2
-          className="text-center text-3xl md:text-4xl font-bold uppercase tracking-widest text-violet-600 mb-20"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          About Me
-        </motion.h2>
+    <section id="about" className="l-section l-alt">
+      <div className="l-wrap">
+        <div className="ds-sec-head">
+          <span className="idx">01</span>
+          <h2 className="t-h2">About me</h2>
+          <span className="t-mono t-faint">background & focus</span>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-16 items-center">
-          {/* Left — bio + counters */}
+          {/* Left */}
           <div>
             <motion.p
-              className="text-gray-600 leading-relaxed text-lg mb-12"
+              className="t-lead"
+              style={{ maxWidth: "52ch", marginBottom: "var(--s-7)" }}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              I help companies integrate AI into their systems and processes — with deep expertise
-              in LLMs, agentic workflows, and production ML infrastructure. I own system design,
-              ship production code, and care deeply about reliability at scale.
+              I help companies integrate AI into their systems — with deep expertise in
+              LLMs, agentic workflows, and production ML infrastructure. I own system
+              design, ship production code, and care deeply about reliability at scale.
             </motion.p>
 
             <motion.div
@@ -90,35 +78,50 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.15 }}
             >
-              <Counter target={5} label="Years Experience" />
-              <Counter target={20} label="Projects Shipped" />
-              <Counter target={8} label="Open Source Repos" />
-              <Counter target={10} suffix="+" label="Tools Built" />
+              <Counter target={5}  label="Years in AI/ML" />
+              <Counter target={20} label="Projects shipped" />
+              <Counter target={8}  label="Open source repos" />
+              <Counter target={10} label="Tools built" />
             </motion.div>
           </div>
 
           {/* Right — terminal */}
           <motion.div
-            className="rounded-xl overflow-hidden font-mono text-sm shadow-xl"
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
+            style={{
+              borderRadius: "var(--r-lg)",
+              overflow: "hidden",
+              border: "1px solid var(--border)",
+              fontFamily: "var(--font-mono)",
+              fontSize: "var(--fs-sm)",
+            }}
           >
-            <div className="flex items-center gap-2 px-4 py-3 bg-[#1e1e2e] border-b border-white/5">
-              <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-              <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
-              <span className="w-3 h-3 rounded-full bg-[#28c840]" />
-              <span className="ml-3 text-gray-500 text-xs">eugine@portfolio:~$</span>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "var(--s-2)",
+                padding: "0.75rem var(--s-4)",
+                background: "var(--bg-2)",
+                borderBottom: "1px solid var(--border)",
+              }}
+            >
+              <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ff5f57", display: "inline-block" }} />
+              <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#febc2e", display: "inline-block" }} />
+              <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#28c840", display: "inline-block" }} />
+              <span className="t-mono t-faint" style={{ marginLeft: "var(--s-3)" }}>eugine@portfolio:~</span>
             </div>
-            <div className="bg-[#1e1e2e] p-6 space-y-2">
+            <div style={{ background: "var(--bg-2)", padding: "var(--s-5)", display: "flex", flexDirection: "column", gap: "var(--s-2)" }}>
               {terminalLines.map((line, i) => {
                 if (line.type === "cursor") {
                   return (
-                    <p key={i} className="flex items-center gap-1.5">
-                      <span className="text-violet-400">eugine@au:~$</span>
+                    <p key={i} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                      <span style={{ color: "var(--accent)" }}>eugine@au:~$</span>
                       <motion.span
-                        className="inline-block w-2 h-4 bg-gray-400 rounded-sm"
+                        style={{ display: "inline-block", width: 8, height: 14, background: "var(--fg-faint)", borderRadius: 2 }}
                         animate={{ opacity: [1, 0] }}
                         transition={{ duration: 0.7, repeat: Infinity, repeatType: "reverse" }}
                       />
@@ -128,13 +131,13 @@ export default function About() {
                 if (line.type === "cmd") {
                   return (
                     <p key={i}>
-                      <span className="text-violet-400">{line.prompt}</span>{" "}
-                      <span className="text-white">{line.text}</span>
+                      <span style={{ color: "var(--accent)" }}>eugine@au:~$</span>{" "}
+                      <span style={{ color: "var(--fg)" }}>{line.text}</span>
                     </p>
                   );
                 }
                 return (
-                  <p key={i} className="text-gray-400 pl-0">{line.text}</p>
+                  <p key={i} style={{ color: "var(--fg-muted)", paddingLeft: 0 }}>{line.text}</p>
                 );
               })}
             </div>

@@ -1,26 +1,89 @@
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Nav() {
   return (
-    <nav className="fixed top-0 w-full z-50 bg-[#0d0e1a]/90 backdrop-blur-sm border-b border-white/5">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <nav
+      style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 60,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "0.85rem var(--gutter)",
+        background: "var(--bg-glass)",
+        backdropFilter: "blur(16px) saturate(1.3)",
+        WebkitBackdropFilter: "blur(16px) saturate(1.3)",
+        borderBottom: "1px solid var(--border-soft)",
+      }}
+    >
+      {/* Brand */}
+      <div style={{ display: "flex", alignItems: "center", gap: "var(--s-3)" }}>
         <Link
           href="/"
-          className="w-10 h-10 rounded-xl bg-violet-600 flex items-center justify-center font-bold text-white text-sm tracking-tight select-none"
+          style={{
+            width: 34,
+            height: 34,
+            borderRadius: 9,
+            display: "grid",
+            placeItems: "center",
+            background: "var(--accent)",
+            color: "var(--accent-fg)",
+            fontFamily: "var(--font-mono)",
+            fontWeight: 600,
+            fontSize: "0.85rem",
+            boxShadow: "var(--shadow)",
+            textDecoration: "none",
+            flexShrink: 0,
+          }}
         >
           ED
         </Link>
-
-        <div className="flex gap-10 text-[11px] uppercase tracking-[0.2em] text-gray-400">
-          <a href="#about" className="hover:text-white transition-colors">About</a>
-          <a href="#services" className="hover:text-white transition-colors">Services</a>
-          <a href="#projects" className="hover:text-white transition-colors">Projects</a>
-        </div>
-
-        <a
-          href="#contact"
-          className="px-5 py-2 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-full transition-colors"
+        <span
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 600,
+            letterSpacing: "-0.02em",
+            fontSize: "1.02rem",
+            whiteSpace: "nowrap",
+          }}
         >
+          Eugine Dsylva
+        </span>
+      </div>
+
+      {/* Center links */}
+      <div
+        className="hidden md:flex"
+        style={{ alignItems: "center", gap: "var(--s-5)" }}
+      >
+        {["About", "Services", "Projects", "Writing"].map((label) => (
+          <a
+            key={label}
+            href={`#${label.toLowerCase()}`}
+            style={{
+              fontSize: "var(--fs-sm)",
+              color: "var(--fg-muted)",
+              transition: "color 0.2s",
+              whiteSpace: "nowrap",
+            }}
+            onMouseEnter={(e) =>
+              ((e.target as HTMLAnchorElement).style.color = "var(--fg)")
+            }
+            onMouseLeave={(e) =>
+              ((e.target as HTMLAnchorElement).style.color = "var(--fg-muted)")
+            }
+          >
+            {label}
+          </a>
+        ))}
+      </div>
+
+      {/* Right */}
+      <div style={{ display: "flex", alignItems: "center", gap: "var(--s-3)" }}>
+        <ThemeToggle />
+        <a href="#contact" className="ds-btn ds-btn-primary ds-btn-sm">
           Get in Touch
         </a>
       </div>

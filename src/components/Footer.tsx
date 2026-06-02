@@ -1,53 +1,66 @@
 const socials = [
-  { label: "LinkedIn", href: "https://linkedin.com/in/euginevd", icon: "in" },
-  { label: "GitHub", href: "https://github.com/euginevd", icon: "gh" },
-  { label: "Email", href: "mailto:euginevd@gmail.com", icon: "@" },
+  { label: "Email",    href: "mailto:euginevd@gmail.com" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/euginevd" },
+  { label: "GitHub",   href: "https://github.com/euginevd" },
 ];
 
 export default function Footer() {
   return (
-    <footer id="contact" className="bg-[#0d0e1a] border-t border-white/5">
-      <div className="max-w-6xl mx-auto px-6 py-16">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
-          {/* Left — brand */}
-          <div>
-            <div className="w-10 h-10 rounded-xl bg-violet-600 flex items-center justify-center font-bold text-white text-sm mb-4">
-              ED
-            </div>
-            <p className="text-gray-400 text-sm max-w-xs leading-relaxed">
-              Building AI that actually works — production-grade LLMs,
-              agents, and infrastructure.
-            </p>
-          </div>
-
-          {/* Right — connect */}
-          <div>
-            <p className="text-white font-semibold mb-4 text-sm uppercase tracking-widest">
-              Connect With Me
-            </p>
-            <div className="flex gap-3">
-              {socials.map(({ label, href, icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith("mailto") ? undefined : "_blank"}
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:bg-violet-600 hover:border-violet-600 hover:text-white transition-all text-xs font-bold"
-                >
-                  {icon}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-12 pt-6 border-t border-white/5 text-center">
-          <p className="text-gray-700 text-xs">
-            © {new Date().getFullYear()} Eugine Dsylva · AI Engineer · Sydney, Australia
+    <>
+      {/* Contact CTA with shader */}
+      <section
+        id="contact"
+        className="l-section"
+        style={{ position: "relative", overflow: "hidden", borderTop: "1px solid var(--border)" }}
+      >
+        <canvas className="ds-shader" data-shader />
+        <div className="ds-gridlines" />
+        <div
+          className="l-wrap"
+          style={{ position: "relative", zIndex: 2, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}
+        >
+          <span className="t-kicker">Let&apos;s talk</span>
+          <h2
+            className="t-h1"
+            style={{ maxWidth: "18ch", marginBlock: "var(--s-5)" }}
+          >
+            Building something that needs AI done right?
+          </h2>
+          <p className="t-lead" style={{ maxWidth: "50ch" }}>
+            Open to select LLM engineering engagements and the right full-time role.
+            Reach out directly.
           </p>
+          <div style={{ display: "flex", gap: "var(--s-3)", flexWrap: "wrap", justifyContent: "center", marginTop: "var(--s-6)" }}>
+            <a href="mailto:euginevd@gmail.com" className="ds-btn ds-btn-primary">
+              euginevd@gmail.com
+            </a>
+            {socials.slice(1).map(({ label, href }) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="ds-btn ds-btn-ghost">
+                {label}
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
-    </footer>
+      </section>
+
+      {/* Footer bar */}
+      <footer
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: "var(--s-3)",
+          padding: "var(--s-6) var(--gutter)",
+          borderTop: "1px solid var(--border)",
+          fontFamily: "var(--font-mono)",
+          fontSize: "var(--fs-mono)",
+          color: "var(--fg-faint)",
+        }}
+      >
+        <span>EUGINE DSYLVA · AI ENGINEER</span>
+        <span>SYDNEY, AUSTRALIA · UTC+10</span>
+        <span>© {new Date().getFullYear()}</span>
+      </footer>
+    </>
   );
 }

@@ -11,7 +11,7 @@ const projects: {
   description: string;
   tags: string[];
   category: Tab;
-  gradient: string;
+  accent: string;
 }[] = [
   {
     title: "RAG Pipeline Framework",
@@ -19,7 +19,7 @@ const projects: {
       "Production-ready retrieval-augmented generation pipeline with hybrid search, reranking, and automated evaluation metrics.",
     tags: ["LangChain", "Python", "pgvector"],
     category: "LLM Apps",
-    gradient: "from-violet-600 to-indigo-700",
+    accent: "oklch(0.72 0.18 47)",
   },
   {
     title: "Multi-Agent Orchestrator",
@@ -27,7 +27,7 @@ const projects: {
       "Orchestration layer for coordinating specialised AI agents with tool use, shared memory, and structured JSON output.",
     tags: ["LangGraph", "Python", "FastAPI", "Redis"],
     category: "Agents",
-    gradient: "from-indigo-600 to-blue-700",
+    accent: "oklch(0.65 0.17 220)",
   },
   {
     title: "LLM Evaluation Suite",
@@ -35,7 +35,7 @@ const projects: {
       "Automated evaluation framework scoring LLM outputs on factuality, relevance, toxicity, and task-specific custom metrics.",
     tags: ["Python", "TypeScript", "OpenAI API"],
     category: "LLM Apps",
-    gradient: "from-fuchsia-600 to-violet-700",
+    accent: "oklch(0.70 0.15 160)",
   },
   {
     title: "Vector Search Service",
@@ -43,15 +43,15 @@ const projects: {
       "High-throughput embedding and similarity search microservice with async batching, caching, and REST + gRPC interface.",
     tags: ["Python", "Docker", "Redis", "AWS"],
     category: "Infrastructure",
-    gradient: "from-blue-600 to-indigo-700",
+    accent: "oklch(0.60 0.18 280)",
   },
   {
     title: "Agentic Code Review Bot",
     description:
-      "GitHub PR review agent that uses tool-calling to read diffs, run static analysis, and post contextual inline comments.",
+      "GitHub PR review agent using tool-calling to read diffs, run static analysis, and post contextual inline comments.",
     tags: ["Agents", "TypeScript", "GitHub API"],
     category: "Agents",
-    gradient: "from-violet-700 to-purple-800",
+    accent: "oklch(0.65 0.17 30)",
   },
   {
     title: "LLM Observability Platform",
@@ -59,32 +59,26 @@ const projects: {
       "Lightweight observability layer for tracing LLM calls, tracking latency, cost, and prompt/response diffs across deployments.",
     tags: ["Python", "Docker", "PostgreSQL", "AWS"],
     category: "Infrastructure",
-    gradient: "from-indigo-700 to-violet-800",
+    accent: "oklch(0.68 0.16 330)",
   },
 ];
 
 export default function Projects() {
   const [active, setActive] = useState<Tab>("All");
-
-  const filtered =
-    active === "All" ? projects : projects.filter((p) => p.category === active);
+  const filtered = active === "All" ? projects : projects.filter((p) => p.category === active);
 
   return (
-    <section id="projects" className="py-32 px-6 bg-[#f5f3ff]">
-      <div className="max-w-6xl mx-auto">
-        <motion.h2
-          className="text-center text-3xl md:text-4xl font-bold uppercase tracking-widest text-violet-600 mb-16"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          Featured Projects
-        </motion.h2>
+    <section id="projects" className="l-section">
+      <div className="l-wrap">
+        <div className="ds-sec-head">
+          <span className="idx">04</span>
+          <h2 className="t-h2">Featured projects</h2>
+          <span className="t-mono t-faint">selected work</span>
+        </div>
 
         {/* Filter tabs */}
         <motion.div
-          className="flex gap-2 flex-wrap justify-center mb-14"
+          style={{ display: "flex", gap: "var(--s-2)", flexWrap: "wrap", marginBottom: "var(--s-7)" }}
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -94,11 +88,20 @@ export default function Projects() {
             <button
               key={tab}
               onClick={() => setActive(tab)}
-              className={`px-5 py-1.5 text-xs uppercase tracking-widest font-medium transition-colors border-b-2 ${
-                active === tab
-                  ? "border-violet-600 text-violet-600"
-                  : "border-transparent text-gray-400 hover:text-gray-700"
-              }`}
+              style={{
+                background: "transparent",
+                border: "none",
+                padding: "0.4rem 0",
+                cursor: "pointer",
+                fontFamily: "var(--font-mono)",
+                fontSize: "var(--fs-mono)",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                color: active === tab ? "var(--accent)" : "var(--fg-faint)",
+                borderBottom: active === tab ? "2px solid var(--accent)" : "2px solid transparent",
+                transition: "color 0.2s, border-color 0.2s",
+                marginRight: "var(--s-4)",
+              }}
             >
               {tab}
             </button>
@@ -106,7 +109,7 @@ export default function Projects() {
         </motion.div>
 
         {/* Cards */}
-        <motion.div layout className="grid md:grid-cols-2 gap-6">
+        <motion.div layout className="grid md:grid-cols-2 gap-4">
           <AnimatePresence mode="popLayout">
             {filtered.map((project) => (
               <motion.article
@@ -116,30 +119,27 @@ export default function Projects() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.97 }}
                 transition={{ duration: 0.25 }}
-                className="group bg-white rounded-2xl overflow-hidden border border-violet-100 shadow-sm hover:shadow-md transition-shadow"
+                className="ds-card ds-card-hover"
+                style={{ overflow: "hidden", padding: 0, display: "flex", flexDirection: "column" }}
               >
-                {/* Colored header */}
-                <div className={`h-36 bg-linear-to-br ${project.gradient} flex items-center justify-center`}>
-                  <span className="text-white/20 text-7xl font-black select-none">
-                    {project.title[0]}
-                  </span>
-                </div>
-
-                <div className="p-6">
-                  <h3 className="text-gray-900 font-bold text-base mb-2">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-4">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
+                {/* Accent header strip */}
+                <div
+                  style={{
+                    height: 4,
+                    background: project.accent,
+                    opacity: 0.7,
+                  }}
+                />
+                <div style={{ padding: "var(--s-6)", display: "flex", flexDirection: "column", gap: "var(--s-4)", flex: 1 }}>
+                  <div>
+                    <h3 className="t-h3" style={{ marginBottom: "var(--s-2)" }}>{project.title}</h3>
+                    <p className="t-muted" style={{ fontSize: "var(--fs-sm)", lineHeight: 1.65 }}>
+                      {project.description}
+                    </p>
+                  </div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--s-2)", marginTop: "auto" }}>
                     {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2.5 py-0.5 bg-violet-50 border border-violet-200 text-violet-600 text-xs rounded-full"
-                      >
-                        {tag}
-                      </span>
+                      <span key={tag} className="ds-chip">{tag}</span>
                     ))}
                   </div>
                 </div>
@@ -149,7 +149,7 @@ export default function Projects() {
         </motion.div>
 
         <motion.div
-          className="flex justify-center mt-12"
+          style={{ display: "flex", justifyContent: "center", marginTop: "var(--s-8)" }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -159,9 +159,9 @@ export default function Projects() {
             href="https://github.com/euginevd"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-3 bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold rounded-full transition-colors"
+            className="ds-btn ds-btn-ghost"
           >
-            View All Projects
+            View all on GitHub →
           </a>
         </motion.div>
       </div>

@@ -1,25 +1,27 @@
 @import "tailwindcss";
+@import "../src/styles/theme.css";
 
-:root {
-  --background: #0d0e1a;
-  --foreground: #ffffff;
-  --accent: #7c3aed;
-  --section-light: #f5f3ff;
-}
-
+/* Expose design tokens as Tailwind utilities */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Fonts */
+  --font-heading: var(--ff-display);
+  --font-sans:    var(--ff-body);
+  --font-mono:    var(--ff-mono);
+
+  /* Colors — these reference the CSS vars so they update on theme switch */
+  --color-accent:    var(--accent);
+  --color-fg:        var(--fg);
+  --color-fg-muted:  var(--fg-muted);
+  --color-fg-faint:  var(--fg-faint);
+  --color-surface:   var(--bg);
+  --color-surface-1: var(--bg-1);
+  --color-surface-2: var(--bg-2);
+  --color-rim:       var(--border);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, sans-serif;
-}
+/* sections that need explicit bg */
+section[id] { scroll-margin-top: 70px; }

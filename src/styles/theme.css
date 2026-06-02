@@ -1,0 +1,329 @@
+/* ============================================================
+   DESIGN THEME — swap this file to change the entire site's look.
+   All colors, fonts, spacing, and component classes live here.
+   The rest of the codebase references only the CSS variables below.
+   ============================================================ */
+
+/* ---------- Fonts ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root {
+  /* Type families */
+  --ff-display: 'Space Grotesk', sans-serif;
+  --ff-body:    'Hanken Grotesk', sans-serif;
+  --ff-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  /* Design system font aliases (used in .display, .mono, etc.) */
+  --font-display: var(--ff-display);
+  --font-body:    var(--ff-body);
+  --font-mono:    var(--ff-mono);
+
+  /* Fluid type scale */
+  --fs-mono:    0.75rem;
+  --fs-sm:      0.875rem;
+  --fs-base:    1rem;
+  --fs-lg:      1.125rem;
+  --fs-xl:      clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --fs-2xl:     clamp(1.6rem, 1.3rem + 1.4vw, 2.25rem);
+  --fs-3xl:     clamp(2.1rem, 1.5rem + 2.6vw, 3.25rem);
+  --fs-display: clamp(2.8rem, 1.6rem + 5.2vw, 6rem);
+
+  /* Spacing scale (8px base) */
+  --s-1: 0.25rem;  --s-2: 0.5rem;   --s-3: 0.75rem;  --s-4: 1rem;
+  --s-5: 1.5rem;   --s-6: 2rem;     --s-7: 3rem;     --s-8: 4rem;
+  --s-9: 6rem;     --s-10: 8rem;
+
+  /* Radii */
+  --r-sm: 6px;  --r-md: 10px;  --r-lg: 16px;  --r-xl: 24px;  --r-full: 999px;
+
+  /* Motion */
+  --ease:     cubic-bezier(0.4, 0, 0.1, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur:      0.45s;
+
+  /* Layout */
+  --maxw:   1180px;
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+
+  /* Signature accent — shared across themes */
+  --accent:        oklch(0.72 0.18 47);
+  --accent-strong: oklch(0.66 0.19 45);
+  --accent-soft:   oklch(0.72 0.18 47 / 0.14);
+  --accent-line:   oklch(0.72 0.18 47 / 0.32);
+}
+
+/* ---------- Dark theme (default) ---------- */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg:          oklch(0.165 0.008 60);
+  --bg-1:        oklch(0.195 0.009 60);
+  --bg-2:        oklch(0.225 0.010 60);
+  --bg-glass:    oklch(0.20 0.010 60 / 0.62);
+  --border:      oklch(0.32 0.012 60);
+  --border-soft: oklch(0.28 0.010 60 / 0.6);
+  --fg:          oklch(0.96 0.006 80);
+  --fg-muted:    oklch(0.74 0.010 75);
+  --fg-faint:    oklch(0.56 0.010 70);
+  --accent-fg:   oklch(0.18 0.02 50);
+  --shadow:      0 1px 2px oklch(0 0 0 / 0.4), 0 12px 40px -12px oklch(0 0 0 / 0.6);
+  --grid-line:   oklch(1 0 0 / 0.035);
+  --shader-base:  #15120f;
+  --shader-glow:  #f97b2e;
+  --shader-alpha: 0.55;
+}
+
+/* ---------- Light theme ---------- */
+[data-theme="light"] {
+  color-scheme: light;
+  --bg:          oklch(0.985 0.004 80);
+  --bg-1:        oklch(0.965 0.005 80);
+  --bg-2:        oklch(0.945 0.006 80);
+  --bg-glass:    oklch(0.99 0.004 80 / 0.7);
+  --border:      oklch(0.89 0.008 75);
+  --border-soft: oklch(0.91 0.007 75 / 0.8);
+  --fg:          oklch(0.22 0.010 60);
+  --fg-muted:    oklch(0.46 0.012 60);
+  --fg-faint:    oklch(0.62 0.012 65);
+  --accent:      oklch(0.64 0.19 45);
+  --accent-strong: oklch(0.58 0.20 43);
+  --accent-soft:   oklch(0.64 0.19 45 / 0.12);
+  --accent-line:   oklch(0.64 0.19 45 / 0.28);
+  --accent-fg:   oklch(0.99 0.01 80);
+  --shadow:      0 1px 2px oklch(0.5 0.02 60 / 0.08), 0 16px 40px -16px oklch(0.5 0.03 60 / 0.22);
+  --grid-line:   oklch(0.2 0.01 60 / 0.05);
+  --shader-base:  #f4efe9;
+  --shader-glow:  #f97316;
+  --shader-alpha: 0.38;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; text-wrap: pretty; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--accent-soft); color: var(--fg); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+/* ============================================================
+   TYPOGRAPHIC UTILITIES
+   ============================================================ */
+.t-display {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+.t-h1 { font-family: var(--font-display); font-size: var(--fs-3xl); font-weight: 600; }
+.t-h2 { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 600; }
+.t-h3 { font-family: var(--font-display); font-size: var(--fs-xl);  font-weight: 600; letter-spacing: -0.02em; }
+
+.t-lead  { font-size: var(--fs-lg); color: var(--fg-muted); line-height: 1.55; }
+.t-muted { color: var(--fg-muted); }
+.t-faint { color: var(--fg-faint); }
+
+.t-mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.t-kicker {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+.t-kicker::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: var(--accent-line);
+}
+
+.t-accent { color: var(--accent); }
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.l-wrap    { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+.l-section { padding-block: clamp(3.5rem, 9vw, 7rem); }
+.l-alt     { background: var(--bg-1); border-block: 1px solid var(--border); position: relative; }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  letter-spacing: -0.01em;
+  padding: 0.7rem 1.2rem;
+  border-radius: var(--r-full);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease-out), background 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
+  white-space: nowrap;
+}
+.ds-btn:active { transform: translateY(1px) scale(0.99); }
+
+.ds-btn-primary { background: var(--accent); color: var(--accent-fg); }
+.ds-btn-primary:hover { background: var(--accent-strong); }
+
+.ds-btn-ghost { background: transparent; color: var(--fg); border-color: var(--border); }
+.ds-btn-ghost:hover { border-color: var(--fg-faint); background: var(--bg-1); }
+
+.ds-btn-sm { padding: 0.45rem 0.9rem; font-size: var(--fs-mono); }
+
+/* ============================================================
+   CHIPS / BADGES
+   ============================================================ */
+.ds-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.03em;
+  padding: 0.32rem 0.7rem;
+  border-radius: var(--r-full);
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+  background: var(--bg-1);
+}
+.ds-chip.is-accent { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
+.ds-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ============================================================
+   CARDS / SURFACES
+   ============================================================ */
+.ds-card {
+  background: var(--bg-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--s-6);
+  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease-out), background 0.3s var(--ease);
+}
+.ds-card-hover:hover { border-color: var(--accent-line); transform: translateY(-3px); }
+
+.ds-panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--r-lg);
+}
+
+/* ============================================================
+   DECORATIVE GRID BACKDROP
+   ============================================================ */
+.ds-gridlines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 80%);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 30%, transparent 80%);
+  pointer-events: none;
+}
+
+/* ============================================================
+   SHADER CANVAS
+   ============================================================ */
+.ds-shader {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* ============================================================
+   SECTION HEADING ROW
+   ============================================================ */
+.ds-sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-4);
+  margin-bottom: var(--s-7);
+  flex-wrap: wrap;
+}
+.ds-sec-head .idx {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  color: var(--accent);
+}
+
+/* ============================================================
+   MARQUEE
+   ============================================================ */
+.ds-marquee { overflow: hidden; padding-block: var(--s-4); background: var(--bg-1); border-block: 1px solid var(--border); }
+.ds-marquee .track { display: flex; gap: var(--s-6); width: max-content; animation: ds-scroll 38s linear infinite; }
+.ds-marquee .track span {
+  font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em;
+  color: var(--fg-faint); white-space: nowrap;
+  display: inline-flex; align-items: center; gap: var(--s-6);
+}
+.ds-marquee .track span::after { content: "◆"; color: var(--accent); font-size: 0.55rem; }
+@keyframes ds-scroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .ds-marquee .track { animation: none; } }
+
+/* ============================================================
+   THEME TOGGLE
+   ============================================================ */
+.ds-theme-toggle { display: inline-flex; border: 1px solid var(--border); border-radius: var(--r-full); overflow: hidden; }
+.ds-theme-toggle button {
+  background: transparent; border: 0; cursor: pointer; color: var(--fg-muted);
+  font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.05em;
+  padding: 0.4rem 0.62rem; text-transform: uppercase; transition: background 0.2s, color 0.2s;
+}
+.ds-theme-toggle button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; border: 3px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--fg-faint); }
