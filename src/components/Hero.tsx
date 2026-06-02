@@ -104,9 +104,10 @@ export default function Hero() {
             }}
           >
             <Image
-              src="/profile_picture.webp"
+              src="/avatar.webp"
               alt="Eugine Dsylva"
               fill
+              sizes="(max-width: 768px) 100vw, 400px"
               style={{ objectFit: "cover", objectPosition: "center top" }}
               priority
             />
