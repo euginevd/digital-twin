@@ -1,94 +1,53 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 const services = [
   {
-    ico: "⚡",
-    badge: "Build",
-    num: "1",
-    title: "LLM Application Development",
-    description:
-      "End-to-end development of production LLM applications — RAG systems, chatbots, document intelligence, and API-first AI products.",
-    outcome:
-      "A robust, production-ready LLM application — evaluated, monitored, and ready to scale.",
+    num: "01",
+    title: "Zero Trust Architecture",
+    description: "End-to-end Zero Trust design and delivery across cloud edge, network, and enterprise environments — AWS LZA, Cloudflare WAF, Network Firewall.",
   },
   {
-    ico: "🏗️",
-    badge: "Design",
-    num: "2",
-    title: "Agentic Systems Architecture",
-    description:
-      "Design and implementation of multi-agent systems with tool use, shared memory, structured outputs, and orchestration frameworks.",
-    outcome:
-      "Reliable agent pipelines that automate complex workflows end-to-end.",
+    num: "02",
+    title: "Cloud Security Posture",
+    description: "CNAPP-aligned guardrails, CSPM, and policy-as-code across multi-cloud, Kubernetes, containers, and serverless workloads.",
   },
   {
-    ico: "☁️",
-    badge: "Scale",
-    num: "3",
-    title: "AI Infrastructure & MLOps",
-    description:
-      "ML platform engineering — data pipelines, training infrastructure, deployment, CI/CD, and model lifecycle management.",
-    outcome:
-      "Fully automated, monitored ML systems running reliably in production.",
+    num: "03",
+    title: "DevSecOps & AppSec",
+    description: "Security embedded into CI/CD and GitOps pipelines — SAST, SCA, DAST, IaC security, secrets management, and container scanning.",
   },
   {
-    ico: "🎯",
-    badge: "Optimise",
-    num: "4",
-    title: "LLM Evaluation & Optimisation",
-    description:
-      "Performance evaluation, cost reduction, latency optimisation, and observability for LLM systems in production.",
-    outcome:
-      "Faster, cheaper, more accurate AI — reduced inference cost, improved output quality.",
+    num: "04",
+    title: "Identity & Endpoint",
+    description: "Microsoft 365, Entra ID, Defender XDR, and Intune — remediating identity, endpoint, and access risk at enterprise scale.",
   },
 ];
 
 export default function Services() {
   return (
-    <section id="services" className="l-section l-alt">
+    <section id="services" style={{ paddingBlock: "clamp(1.5rem, 3vw, 2.5rem)", borderTop: "1px solid var(--border)" }}>
       <div className="l-wrap">
-        <div className="ds-sec-head">
-          <span className="idx">03</span>
-          <h2 className="t-h2">What I deliver</h2>
+        <div className="ds-sec-head" style={{ marginBottom: "var(--s-4)" }}>
+          <span className="idx" style={{ fontSize: "0.65rem" }}>03</span>
+          <h2 className="t-h2" style={{ fontSize: "var(--fs-xl)" }}>What I deliver</h2>
           <span className="t-mono t-faint">services & outcomes</span>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4">
-          {services.map((s, i) => (
-            <motion.div
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--s-4)" }}>
+          {services.map((s) => (
+            <div
               key={s.title}
-              className="ds-card ds-card-hover"
-              style={{ display: "flex", flexDirection: "column", gap: "var(--s-4)" }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="ds-card"
+              style={{ display: "flex", flexDirection: "column", gap: "var(--s-3)", padding: "var(--s-4)" }}
             >
-              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
-                <span style={{ fontSize: "1.6rem" }}>{s.ico}</span>
-                <span className="ds-chip is-accent ds-btn-sm">
-                  {s.num}. {s.badge}
-                </span>
-              </div>
-
-              <h3 className="t-h3">{s.title}</h3>
-              <p className="t-muted" style={{ fontSize: "var(--fs-sm)", lineHeight: 1.65 }}>{s.description}</p>
-
-              <div
-                style={{
-                  borderLeft: "3px solid var(--accent)",
-                  paddingLeft: "var(--s-4)",
-                  paddingBlock: "var(--s-3)",
-                  background: "var(--accent-soft)",
-                  borderRadius: "0 var(--r-sm) var(--r-sm) 0",
-                  marginTop: "auto",
-                }}
-              >
-                <p style={{ fontSize: "var(--fs-sm)", fontWeight: 600, lineHeight: 1.45, color: "var(--fg)" }}>{s.outcome}</p>
-              </div>
-            </motion.div>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", color: "var(--accent)", letterSpacing: "0.08em" }}>
+                {s.num}
+              </span>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "var(--fs-sm)", letterSpacing: "-0.01em" }}>
+                {s.title}
+              </h3>
+              <p style={{ fontSize: "0.75rem", color: "var(--fg-muted)", lineHeight: 1.6 }}>
+                {s.description}
+              </p>
+            </div>
           ))}
         </div>
       </div>

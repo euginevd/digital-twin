@@ -1,9 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <nav
       style={{
@@ -14,53 +23,40 @@ export default function Nav() {
         alignItems: "center",
         justifyContent: "space-between",
         padding: "0.85rem var(--gutter)",
-        background: "var(--bg-glass)",
-        backdropFilter: "blur(16px) saturate(1.3)",
-        WebkitBackdropFilter: "blur(16px) saturate(1.3)",
-        borderBottom: "1px solid var(--border-soft)",
+        background: scrolled ? "var(--bg-glass)" : "var(--bg)",
+        backdropFilter: scrolled ? "blur(20px) saturate(1.4)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(20px) saturate(1.4)" : "none",
+        transition: "background 0.3s ease, backdrop-filter 0.3s ease",
       }}
     >
       {/* Brand */}
-      <div style={{ display: "flex", alignItems: "center", gap: "var(--s-3)" }}>
-        <Link
-          href="/"
-          style={{
-            width: 34,
-            height: 34,
-            borderRadius: 9,
-            display: "grid",
-            placeItems: "center",
-            background: "var(--accent)",
-            color: "var(--accent-fg)",
-            fontFamily: "var(--font-mono)",
-            fontWeight: 600,
-            fontSize: "0.85rem",
-            boxShadow: "var(--shadow)",
-            textDecoration: "none",
-            flexShrink: 0,
-          }}
-        >
-          ED
-        </Link>
-        <span
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 600,
-            letterSpacing: "-0.02em",
-            fontSize: "1.02rem",
-            whiteSpace: "nowrap",
-          }}
-        >
-          Eugine Dsylva
-        </span>
-      </div>
+      <Link
+        href="/"
+        style={{
+          width: 36,
+          height: 36,
+          borderRadius: 9,
+          display: "grid",
+          placeItems: "center",
+          background: "var(--accent)",
+          color: "var(--accent-fg)",
+          fontFamily: "var(--font-mono)",
+          fontWeight: 700,
+          fontSize: "0.88rem",
+          boxShadow: "var(--shadow)",
+          textDecoration: "none",
+          flexShrink: 0,
+        }}
+      >
+        ED
+      </Link>
 
       {/* Center links */}
       <div
         className="hidden md:flex"
         style={{ alignItems: "center", gap: "var(--s-5)" }}
       >
-        {["About", "Services", "Projects", "Writing"].map((label) => (
+        {["About", "Services", "Projects"].map((label) => (
           <a
             key={label}
             href={`#${label.toLowerCase()}`}
@@ -80,15 +76,13 @@ export default function Nav() {
             {label}
           </a>
         ))}
+        <a href="#chat" className="ds-btn ds-btn-primary ds-btn-sm">
+          Chat with my AI
+        </a>
       </div>
 
       {/* Right */}
-      <div style={{ display: "flex", alignItems: "center", gap: "var(--s-3)" }}>
-        <ThemeToggle />
-        <a href="#contact" className="ds-btn ds-btn-primary ds-btn-sm">
-          Get in Touch
-        </a>
-      </div>
+      <ThemeToggle />
     </nav>
   );
 }

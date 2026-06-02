@@ -4,8 +4,8 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
-  title: "Eugine Dsylva — AI Engineer",
-  description: "Personal site of Eugine Dsylva, an AI engineer building intelligent systems.",
+  title: "Eugine Dsylva — Cloud Security Architect",
+  description: "Personal site of Eugine Dsylva, a Cloud Security Architect securing cloud infrastructure and applications at enterprise scale.",
 };
 
 export default function RootLayout({

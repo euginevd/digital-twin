@@ -3,165 +3,174 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const TABS = ["All", "LLM Apps", "Agents", "Infrastructure"] as const;
-type Tab = (typeof TABS)[number];
+const CATEGORIES = [
+  "Cloud & Network Edge Security",
+  "Cloud Native Application Protection",
+  "Identity & Endpoint",
+] as const;
+type Category = (typeof CATEGORIES)[number];
 
 const projects: {
   title: string;
   description: string;
   tags: string[];
-  category: Tab;
-  accent: string;
+  category: Category;
 }[] = [
+  // Cloud & Network Edge Security
   {
-    title: "RAG Pipeline Framework",
-    description:
-      "Production-ready retrieval-augmented generation pipeline with hybrid search, reranking, and automated evaluation metrics.",
-    tags: ["LangChain", "Python", "pgvector"],
-    category: "LLM Apps",
-    accent: "oklch(0.72 0.18 47)",
+    title: "Zero Trust Hub-and-Spoke",
+    description: "Designed and built Zero Trust network architecture on AWS Landing Zone Accelerator across 70+ accounts, securing 300+ web apps and APIs via Cloudflare WAF and AWS Network Firewall.",
+    tags: ["AWS LZA", "Cloudflare WAF", "Network Firewall", "Zero Trust"],
+    category: "Cloud & Network Edge Security",
   },
   {
-    title: "Multi-Agent Orchestrator",
-    description:
-      "Orchestration layer for coordinating specialised AI agents with tool use, shared memory, and structured JSON output.",
-    tags: ["LangGraph", "Python", "FastAPI", "Redis"],
-    category: "Agents",
-    accent: "oklch(0.65 0.17 220)",
+    title: "Edge WAF & API Protection",
+    description: "Consolidated ingress security across enterprise applications using Cloudflare WAF, TLS hardening, ADC/WAF policy-as-code, and API gateway controls at scale.",
+    tags: ["Cloudflare", "API Security", "TLS", "Policy-as-Code"],
+    category: "Cloud & Network Edge Security",
   },
   {
-    title: "LLM Evaluation Suite",
-    description:
-      "Automated evaluation framework scoring LLM outputs on factuality, relevance, toxicity, and task-specific custom metrics.",
-    tags: ["Python", "TypeScript", "OpenAI API"],
-    category: "LLM Apps",
-    accent: "oklch(0.70 0.15 160)",
+    title: "Cloud Ingress Migration",
+    description: "Led migration of on-premises perimeter controls to cloud-native ingress, including MFA enforcement, cloud firewall policy standardisation, and network segmentation uplift.",
+    tags: ["AWS", "Azure", "Network Segmentation", "MFA"],
+    category: "Cloud & Network Edge Security",
+  },
+
+  // Cloud Native Application Protection
+  {
+    title: "CNAPP Guardrails Deployment",
+    description: "Built policy-as-code guardrails aligned to CNAPP frameworks across Kubernetes, multi-cloud AWS/Azure, and serverless — driving measurable reduction in cloud security risk.",
+    tags: ["CNAPP", "Kubernetes", "AWS", "Azure", "Terraform"],
+    category: "Cloud Native Application Protection",
   },
   {
-    title: "Vector Search Service",
-    description:
-      "High-throughput embedding and similarity search microservice with async batching, caching, and REST + gRPC interface.",
-    tags: ["Python", "Docker", "Redis", "AWS"],
-    category: "Infrastructure",
-    accent: "oklch(0.60 0.18 280)",
+    title: "DevSecOps Pipeline Integration",
+    description: "Embedded full-spectrum AppSec controls into CI/CD and GitOps pipelines — SAST, SCA, DAST, IaC security, secrets management, and container image/runtime scanning.",
+    tags: ["DevSecOps", "SAST", "DAST", "SCA", "GitOps"],
+    category: "Cloud Native Application Protection",
   },
   {
-    title: "Agentic Code Review Bot",
-    description:
-      "GitHub PR review agent using tool-calling to read diffs, run static analysis, and post contextual inline comments.",
-    tags: ["Agents", "TypeScript", "GitHub API"],
-    category: "Agents",
-    accent: "oklch(0.65 0.17 30)",
+    title: "Cloud Security Posture Assessments",
+    description: "Led posture assessments across AWS, Azure, and SaaS environments, implementing CNAPP-aligned controls across compute, containers, and serverless workloads.",
+    tags: ["CSPM", "AWS", "Azure", "SaaS Security"],
+    category: "Cloud Native Application Protection",
+  },
+
+  // Identity & Endpoint
+  {
+    title: "M365 Security Remediation",
+    description: "Delivered enterprise-wide Microsoft 365 security uplift across Entra ID, Identity Protection, Intune, Defender XDR, DLP, and CASB — reducing high-risk findings by ~70%.",
+    tags: ["Entra ID", "Defender XDR", "Intune", "CASB", "DLP"],
+    category: "Identity & Endpoint",
   },
   {
-    title: "LLM Observability Platform",
-    description:
-      "Lightweight observability layer for tracing LLM calls, tracking latency, cost, and prompt/response diffs across deployments.",
-    tags: ["Python", "Docker", "PostgreSQL", "AWS"],
-    category: "Infrastructure",
-    accent: "oklch(0.68 0.16 330)",
+    title: "Zero Trust Identity Rollout",
+    description: "Implemented Zero Trust access principles for a globally distributed workforce — VDI hardening, MDM, MFA, and remote access security across 30+ enterprise applications.",
+    tags: ["Zero Trust", "VDI", "MDM", "MFA"],
+    category: "Identity & Endpoint",
+  },
+  {
+    title: "Essential Eight Uplift",
+    description: "Remediated ransomware and privilege-escalation risk across SOCI critical-infrastructure IT/OT environments, aligned to Essential Eight maturity model requirements.",
+    tags: ["Essential Eight", "IT/OT", "SOCI", "Ransomware"],
+    category: "Identity & Endpoint",
   },
 ];
 
 export default function Projects() {
-  const [active, setActive] = useState<Tab>("All");
-  const filtered = active === "All" ? projects : projects.filter((p) => p.category === active);
+  const [active, setActive] = useState<Category>(CATEGORIES[0]);
+  const filtered = projects.filter((p) => p.category === active);
 
   return (
-    <section id="projects" className="l-section">
+    <section id="projects" style={{ paddingBlock: "clamp(1.5rem, 3vw, 2.5rem)", borderTop: "1px solid var(--border)" }}>
       <div className="l-wrap">
-        <div className="ds-sec-head">
-          <span className="idx">04</span>
-          <h2 className="t-h2">Featured projects</h2>
+        <div className="ds-sec-head" style={{ marginBottom: "var(--s-3)" }}>
+          <span className="idx" style={{ fontSize: "0.65rem" }}>04</span>
+          <h2 className="t-h2" style={{ fontSize: "var(--fs-xl)" }}>Featured projects</h2>
           <span className="t-mono t-faint">selected work</span>
         </div>
 
-        {/* Filter tabs */}
-        <motion.div
-          style={{ display: "flex", gap: "var(--s-2)", flexWrap: "wrap", marginBottom: "var(--s-7)" }}
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        {/* Category tabs */}
+        <div
+          style={{
+            display: "flex",
+            gap: 0,
+            flexWrap: "wrap",
+            marginBottom: "var(--s-4)",
+            borderBottom: "1px solid var(--border)",
+          }}
         >
-          {TABS.map((tab) => (
+          {CATEGORIES.map((cat) => (
             <button
-              key={tab}
-              onClick={() => setActive(tab)}
+              key={cat}
+              onClick={() => setActive(cat)}
               style={{
                 background: "transparent",
                 border: "none",
-                padding: "0.4rem 0",
+                borderBottom: active === cat ? "2px solid var(--accent)" : "2px solid transparent",
+                marginBottom: -1,
+                padding: "0.6rem var(--s-5)",
                 cursor: "pointer",
                 fontFamily: "var(--font-mono)",
                 fontSize: "var(--fs-mono)",
-                letterSpacing: "0.08em",
+                letterSpacing: "0.07em",
                 textTransform: "uppercase",
-                color: active === tab ? "var(--accent)" : "var(--fg-faint)",
-                borderBottom: active === tab ? "2px solid var(--accent)" : "2px solid transparent",
+                color: active === cat ? "var(--accent)" : "var(--fg-faint)",
                 transition: "color 0.2s, border-color 0.2s",
-                marginRight: "var(--s-4)",
+                whiteSpace: "nowrap",
               }}
             >
-              {tab}
+              {cat}
             </button>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Cards */}
-        <motion.div layout className="grid md:grid-cols-2 gap-4">
-          <AnimatePresence mode="popLayout">
+        {/* Cards — one row of 3 */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25 }}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "var(--s-5)",
+            }}
+          >
             {filtered.map((project) => (
-              <motion.article
+              <article
                 key={project.title}
-                layout
-                initial={{ opacity: 0, scale: 0.97 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.97 }}
-                transition={{ duration: 0.25 }}
                 className="ds-card ds-card-hover"
-                style={{ overflow: "hidden", padding: 0, display: "flex", flexDirection: "column" }}
+                style={{ display: "flex", flexDirection: "column", gap: "var(--s-3)", padding: "var(--s-4)" }}
               >
-                {/* Accent header strip */}
-                <div
-                  style={{
-                    height: 4,
-                    background: project.accent,
-                    opacity: 0.7,
-                  }}
-                />
-                <div style={{ padding: "var(--s-6)", display: "flex", flexDirection: "column", gap: "var(--s-4)", flex: 1 }}>
-                  <div>
-                    <h3 className="t-h3" style={{ marginBottom: "var(--s-2)" }}>{project.title}</h3>
-                    <p className="t-muted" style={{ fontSize: "var(--fs-sm)", lineHeight: 1.65 }}>
-                      {project.description}
-                    </p>
-                  </div>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--s-2)", marginTop: "auto" }}>
-                    {project.tags.map((tag) => (
-                      <span key={tag} className="ds-chip">{tag}</span>
-                    ))}
-                  </div>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "var(--fs-sm)", letterSpacing: "-0.01em" }}>
+                  {project.title}
+                </h3>
+                <p style={{ fontSize: "0.75rem", color: "var(--fg-muted)", lineHeight: 1.6, flex: 1 }}>
+                  {project.description}
+                </p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--s-1)" }}>
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="ds-chip" style={{ fontSize: "0.65rem", padding: "0.18rem 0.5rem" }}>{tag}</span>
+                  ))}
                 </div>
-              </motion.article>
+              </article>
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </motion.div>
+        </AnimatePresence>
 
+        {/* View all */}
         <motion.div
-          style={{ display: "flex", justifyContent: "center", marginTop: "var(--s-8)" }}
+          style={{ display: "flex", justifyContent: "center", marginTop: "var(--s-4)" }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <a
-            href="https://github.com/euginevd"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ds-btn ds-btn-ghost"
-          >
-            View all on GitHub →
+          <a href="https://github.com/euginevd" target="_blank" rel="noopener noreferrer" className="ds-btn ds-btn-ghost">
+            View all projects →
           </a>
         </motion.div>
       </div>
