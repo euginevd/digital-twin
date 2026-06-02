@@ -4,9 +4,6 @@
    The rest of the codebase references only the CSS variables below.
    ============================================================ */
 
-/* ---------- Fonts ---------- */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
 /* ============================================================
    TOKENS
    ============================================================ */
