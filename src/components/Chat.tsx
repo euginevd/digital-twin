@@ -205,8 +205,10 @@ export default function Chat() {
               Meet my <span style={{ color: "var(--accent)" }}>Digital Twin</span>.
             </h2>
             <p style={{ color: "var(--fg-muted)", maxWidth: "48ch", fontSize: "var(--fs-lg)", lineHeight: 1.55 }}>
-              A live demo of the project — an AI built to represent me across chat, voice, and scheduling. Ask it anything about my work, book time, or reach me directly.
+              This is an AI built to represent me. Ask it about my work, book time, or send me a direct message.
             </p>
+
+
             <div style={{ display: "flex", gap: "var(--s-2)", flexWrap: "wrap", justifyContent: "center", marginTop: "var(--s-4)" }}>
               <span style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.35rem 0.85rem", borderRadius: "var(--r-full)", fontFamily: "var(--font-mono)", fontSize: "0.68rem", letterSpacing: "0.04em", border: "1px solid var(--accent-line)", background: "var(--bg-1)", color: "var(--fg)" }}>
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "oklch(0.72 0.18 112)", flexShrink: 0, animation: "pulse-dot 2.2s ease-in-out infinite" }} aria-hidden="true" />
@@ -215,11 +217,11 @@ export default function Chat() {
               <span style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.35rem 0.85rem", borderRadius: "var(--r-full)", fontFamily: "var(--font-mono)", fontSize: "0.68rem", letterSpacing: "0.04em", border: "1px solid var(--border)", background: "var(--bg-1)", color: "var(--fg-muted)", opacity: 0.4 }}>
                 Voice Agent · soon
               </span>
-              <a href="https://calendly.com/euginevd" target="_blank" rel="noopener" style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.35rem 0.85rem", borderRadius: "var(--r-full)", fontFamily: "var(--font-mono)", fontSize: "0.68rem", letterSpacing: "0.04em", border: "1px solid var(--border)", background: "var(--bg-1)", color: "var(--fg-muted)", textDecoration: "none", transition: "border-color 0.2s, color 0.2s, background 0.2s" }}>
+              <a href="https://cal.com/euginevd/30min" target="_blank" rel="noopener" style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.35rem 0.85rem", borderRadius: "var(--r-full)", fontFamily: "var(--font-mono)", fontSize: "0.68rem", letterSpacing: "0.04em", border: "1px solid var(--border)", background: "var(--bg-1)", color: "var(--fg-muted)", textDecoration: "none", transition: "border-color 0.2s, color 0.2s, background 0.2s" }}>
                 Book a meeting →
               </a>
               <a href="https://linkedin.com/in/euginevd/" target="_blank" rel="noopener" style={{ display: "flex", alignItems: "center", gap: 6, padding: "0.35rem 0.85rem", borderRadius: "var(--r-full)", fontFamily: "var(--font-mono)", fontSize: "0.68rem", letterSpacing: "0.04em", border: "1px solid var(--border)", background: "var(--bg-1)", color: "var(--fg-muted)", textDecoration: "none", transition: "border-color 0.2s, color 0.2s, background 0.2s" }}>
-                Talk to Eugine →
+                Message Eugine →
               </a>
             </div>
             <div style={{ display: "flex", gap: "var(--s-2)", flexWrap: "wrap", justifyContent: "center", marginTop: "var(--s-3)" }}>
