@@ -62,6 +62,17 @@ export default function Chat() {
     if (logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight;
   }, [messages]);
 
+  // Send transcript when tab is closed (best-effort)
+  useEffect(() => {
+    const handle = () => {
+      const msgs = messages.filter((m) => !m.typing && m.text !== "thinking…");
+      if (msgs.length < 2) return;
+      navigator.sendBeacon("/api/notify", JSON.stringify({ messages: msgs }));
+    };
+    window.addEventListener("beforeunload", handle);
+    return () => window.removeEventListener("beforeunload", handle);
+  }, [messages]);
+
   function toggleKeep() {
     const next = !keepChat;
     setKeepChat(next);
@@ -69,7 +80,22 @@ export default function Chat() {
     if (!next) localStorage.removeItem(STORAGE_KEY);
   }
 
+  async function sendTranscript(msgs: Message[]) {
+    const meaningful = msgs.filter((m) => !m.typing && m.text !== "thinking…");
+    if (meaningful.length < 2) return;
+    try {
+      await fetch("/api/notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: meaningful }),
+      });
+    } catch {
+      // best-effort
+    }
+  }
+
   function reset() {
+    sendTranscript(messages);
     setMessages([]);
     setActive(false);
     apiHistoryRef.current = [];
