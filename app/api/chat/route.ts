@@ -6,14 +6,15 @@ import { retrieveContext } from "@/lib/rag";
 
 const client = new Anthropic();
 
+let styleCache: string | null = null;
 function loadStyle(): string {
-  return readFileSync(join(process.cwd(), "context/style.md"), "utf-8");
+  if (!styleCache) styleCache = readFileSync(join(process.cwd(), "context/style.md"), "utf-8");
+  return styleCache;
 }
 
 export async function POST(req: NextRequest) {
   const { messages } = await req.json();
 
-  // Use the last user message as the retrieval query
   const lastUser = [...messages].reverse().find((m: { role: string }) => m.role === "user");
   const query = lastUser?.content ?? "";
 
@@ -22,14 +23,23 @@ export async function POST(req: NextRequest) {
     Promise.resolve(loadStyle()),
   ]);
 
-  const systemPrompt = `${context}\n\n---\n\n${style}`;
-
   const stream = await client.messages.stream({
     model: "claude-haiku-4-5-20251001",
     max_tokens: 512,
-    system: systemPrompt,
+    system: [
+      {
+        type: "text",
+        text: style,
+        cache_control: { type: "ephemeral" },
+      },
+      {
+        type: "text",
+        text: context,
+      },
+    ],
     messages,
-  });
+    betas: ["prompt-caching-2024-07-31"],
+  } as Parameters<typeof client.messages.stream>[0]);
 
   const encoder = new TextEncoder();
   const readable = new ReadableStream({
