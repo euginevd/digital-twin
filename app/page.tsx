@@ -1,7 +1,8 @@
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Services from "@/components/Services";
-import Projects from "@/components/Projects";
+import Outcomes from "@/components/Outcomes";
+import Chat from "@/components/Chat";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -10,7 +11,8 @@ export default function Home() {
       <Hero />
       <About />
       <Services />
-      <Projects />
+      <Outcomes />
+      <Chat />
       <Footer />
     </main>
   );

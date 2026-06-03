@@ -34,49 +34,17 @@ const links = [
 
 export default function Footer() {
   return (
-    <footer
-      id="contact"
-      style={{
-        borderTop: "1px solid var(--border)",
-        padding: "clamp(1.2rem, 2.5vw, 2rem) var(--gutter)",
-      }}
-    >
-      <div
-        className="l-wrap"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          gap: "var(--s-5)",
-        }}
-      >
-        {/* Left */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-2)" }}>
-          <span
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 600,
-              fontSize: "var(--fs-lg)",
-              letterSpacing: "-0.02em",
-            }}
-          >
+    <footer style={{ borderTop: "1px solid var(--border)", padding: "clamp(1.5rem, 3vw, 2.25rem) var(--gutter)" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "var(--s-5)", flexWrap: "wrap", maxWidth: "var(--maxw)", marginInline: "auto" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+          <span style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "0.95rem", letterSpacing: "-0.02em", color: "var(--fg)" }}>
             Eugine Dsylva
           </span>
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "var(--fs-mono)",
-              color: "var(--fg-faint)",
-              letterSpacing: "0.06em",
-              textTransform: "uppercase",
-            }}
-          >
-            Cloud Security Architect · Sydney, Australia
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", letterSpacing: "0.06em", color: "var(--fg-faint)", textTransform: "uppercase" }}>
+            Cloud Security Architect &nbsp;·&nbsp; Sydney, AU &nbsp;·&nbsp; Open to select engagements
           </span>
         </div>
 
-        {/* Right — social icons */}
         <div style={{ display: "flex", alignItems: "center", gap: "var(--s-3)" }}>
           {links.map(({ label, href, icon }) => (
             <a
@@ -94,41 +62,31 @@ export default function Footer() {
                 alignItems: "center",
                 justifyContent: "center",
                 color: "var(--fg-muted)",
-                transition: "border-color 0.2s, color 0.2s, background 0.2s",
+                transition: "border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s var(--ease-out)",
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLAnchorElement;
                 el.style.color = "var(--accent)";
                 el.style.borderColor = "var(--accent-line)";
                 el.style.background = "var(--accent-soft)";
+                el.style.transform = "translateY(-2px)";
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLAnchorElement;
                 el.style.color = "var(--fg-muted)";
                 el.style.borderColor = "var(--border)";
                 el.style.background = "transparent";
+                el.style.transform = "translateY(0)";
               }}
             >
               {icon}
             </a>
           ))}
         </div>
-      </div>
 
-      {/* Bottom bar */}
-      <div
-        className="l-wrap"
-        style={{
-          marginTop: "var(--s-3)",
-          paddingTop: "var(--s-3)",
-          borderTop: "1px solid var(--border)",
-          textAlign: "center",
-          fontFamily: "var(--font-mono)",
-          fontSize: "var(--fs-mono)",
-          color: "var(--fg-faint)",
-        }}
-      >
-        <span>0.1 © Built with Claude</span>
+        <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", color: "var(--fg-faint)", letterSpacing: "0.04em" }}>
+          &copy; 2026 Eugine Dsylva
+        </p>
       </div>
     </footer>
   );

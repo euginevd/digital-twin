@@ -26,3 +26,79 @@ html {
 
 /* sections that need explicit bg */
 section[id] { scroll-margin-top: 70px; }
+
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.72 0.18 112 / 0.35); }
+  50% { box-shadow: 0 0 0 5px oklch(0.72 0.18 112 / 0); }
+}
+@keyframes chev {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.7; }
+}
+@keyframes cert-scroll-l {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes cert-scroll-r {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cert-band-track { animation: none !important; }
+  .avail-dot { animation: none !important; }
+  .scroll-ind svg { animation: none !important; }
+}
+
+/* ============================================================
+   NAV — responsive center links hidden on small screens
+   ============================================================ */
+@media (max-width: 760px) {
+  .nav-center-links { display: none !important; }
+}
+
+/* ============================================================
+   HERO — responsive photo column
+   ============================================================ */
+@media (max-width: 760px) {
+  .hero-inner {
+    grid-template-columns: 1fr !important;
+    text-align: left;
+  }
+  .hero-photo {
+    order: -1;
+    width: clamp(160px, 45vw, 220px) !important;
+  }
+}
+
+/* ============================================================
+   ABOUT — responsive intro row
+   ============================================================ */
+@media (max-width: 900px) {
+  .about-intro-row {
+    grid-template-columns: 1fr !important;
+    gap: var(--s-6) !important;
+  }
+}
+
+/* ============================================================
+   SERVICES — responsive grid
+   ============================================================ */
+@media (max-width: 900px) {
+  #services .svc-grid-inner { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 560px) {
+  #services .svc-grid-inner { grid-template-columns: 1fr !important; }
+}
+
+/* ============================================================
+   OUTCOMES — responsive item grid
+   ============================================================ */
+@media (max-width: 560px) {
+  .outcome-item { grid-template-columns: 48px 1fr !important; }
+}
+@media (max-width: 420px) {
+  .outcome-item { grid-template-columns: 1fr !important; gap: var(--s-3) !important; }
+}

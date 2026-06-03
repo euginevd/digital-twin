@@ -289,7 +289,7 @@ a { color: inherit; text-decoration: none; }
 .ds-sec-head .idx {
   font-family: var(--font-mono);
   font-size: var(--fs-mono);
-  color: var(--accent);
+  color: var(--fg-faint);
 }
 
 /* ============================================================

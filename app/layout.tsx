@@ -6,6 +6,7 @@ import Nav from "@/components/Nav";
 export const metadata: Metadata = {
   title: "Eugine Dsylva — Cloud Security Architect",
   description: "Personal site of Eugine Dsylva, a Cloud Security Architect securing cloud infrastructure and applications at enterprise scale.",
+  icons: { icon: "/favicon.svg" },
 };
 
 export default function RootLayout({
