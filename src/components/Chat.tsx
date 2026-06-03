@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { FAQS } from "@/lib/faq";
 
 
 interface Message {
@@ -15,11 +16,6 @@ interface ApiMessage {
   content: string;
 }
 
-const SUGGESTIONS = [
-  { label: "Walk me through a Zero Trust architecture you've designed.", short: "Walk me through a Zero Trust architecture" },
-  { label: "How do you embed security into a DevSecOps pipeline?", short: "Security in a DevSecOps pipeline" },
-  { label: "What cloud security outcomes have you delivered for enterprise clients?", short: "Cloud security outcomes you've delivered" },
-];
 
 export default function Chat() {
   const [active, setActive] = useState(false);
@@ -48,6 +44,17 @@ export default function Chat() {
     const userMsg: Message = { role: "user", text: q };
     apiHistoryRef.current.push({ role: "user", content: q });
     setMessages((prev) => [...prev, userMsg, { role: "bot", text: "thinking…", typing: true }]);
+
+    const faqMatch = FAQS.find((f) => f.label === q || f.short === q);
+    if (faqMatch) {
+      apiHistoryRef.current.push({ role: "assistant", content: faqMatch.answer });
+      setMessages((prev) =>
+        prev.map((m, i) => i === prev.length - 1 ? { role: "bot", text: faqMatch.answer } : m)
+      );
+      setBusy(false);
+      textareaRef.current?.focus();
+      return;
+    }
 
     try {
       const res = await fetch("/api/chat", {
@@ -170,7 +177,7 @@ export default function Chat() {
               </a>
             </div>
             <div style={{ display: "flex", gap: "var(--s-2)", flexWrap: "wrap", justifyContent: "center", marginTop: "var(--s-3)" }}>
-              {SUGGESTIONS.map((s) => (
+              {FAQS.map((s) => (
                 <button
                   key={s.label}
                   className="ds-chip"
