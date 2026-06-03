@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 function Counter({ target, suffix = "+", label }: { target: number; suffix?: string; label: string }) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(target);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
 
@@ -25,7 +25,7 @@ function Counter({ target, suffix = "+", label }: { target: number; suffix?: str
         requestAnimationFrame(tick);
         obs.disconnect();
       }
-    }, { threshold: 0.5 });
+    }, { threshold: 0.1 });
     obs.observe(el);
     return () => obs.disconnect();
   }, [target]);
