@@ -65,7 +65,7 @@ export default function Hero() {
 
           <div style={{ display: "flex", gap: "var(--s-3)", flexWrap: "wrap" }}>
             <a href="#outcomes" className="ds-btn ds-btn-primary">See my work</a>
-            <a href="/cv.pdf" className="ds-btn ds-btn-ghost" download>
+            <a href="/cv.pdf" className="ds-btn ds-btn-ghost" download="Eugine-Dsylva-Cloud-Security-Architect-CV.pdf">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14"/></svg>
               Download CV
             </a>
