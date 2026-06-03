@@ -60,7 +60,7 @@ export default function Hero() {
           </p>
 
           <p className="t-lead" style={{ marginBottom: "var(--s-6)", maxWidth: "48ch" }}>
-            I design and build cloud security programs that hold — hands-on from architecture through delivery, for enterprises moving fast on AWS and Azure.
+            I design and build cloud security programs that hold — hands-on from architecture through engineering, for enterprises moving fast on AWS and Azure.
           </p>
 
           <div style={{ display: "flex", gap: "var(--s-3)", flexWrap: "wrap" }}>

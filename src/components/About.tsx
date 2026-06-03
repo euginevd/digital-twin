@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 
 function Counter({ target, suffix = "+", label }: { target: number; suffix?: string; label: string }) {
   const [count, setCount] = useState(target);
@@ -157,7 +156,7 @@ export default function About() {
                 lineHeight: 1.4,
                 letterSpacing: "-0.015em",
               }}>
-                Cloud Security Architect across <span style={{ color: "var(--accent)", fontWeight: 600 }}>AWS, Azure,</span> and hybrid environments — hands-on from architecture through delivery. Experience across enterprise infrastructure, network, and cloud security.
+                Cloud Security Architect across <span style={{ color: "var(--accent)", fontWeight: 600 }}>AWS, Azure,</span> and hybrid environments — hands-on from architecture through engineering. Experience across enterprise infrastructure, network, and cloud security.
               </p>
               <p style={{ fontSize: "var(--fs-base)", color: "var(--fg-muted)", lineHeight: 1.6, maxWidth: "52ch" }}>
                 Six years focused entirely on cloud-native security at enterprise scale in Australia, with earlier work across regulated environments in the UAE and Qatar.

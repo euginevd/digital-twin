@@ -39,6 +39,6 @@ export const FAQS: Faq[] = [
     short: "What sets you apart?",
     label: "What makes you different from other security architects?",
     answer:
-      "I'm hands-on from design through to delivery — I don't disappear after the architecture review. I see my role as an enabler: I work with engineering teams, not around them, so security actually lands rather than sitting in a backlog.",
+      "I'm hands-on from design through to engineering — I don't disappear after the architecture review. I see my role as an enabler: I work with engineering teams, not around them, so security actually lands rather than sitting in a backlog.",
   },
 ];
