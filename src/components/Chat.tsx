@@ -17,18 +17,64 @@ interface ApiMessage {
 }
 
 
+const STORAGE_KEY = "chat_history";
+const KEEP_KEY = "chat_keep";
+
 export default function Chat() {
   const [active, setActive] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
+  const [keepChat, setKeepChat] = useState(false);
   const logRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const apiHistoryRef = useRef<ApiMessage[]>([]);
 
+  // Restore saved session on mount
+  useEffect(() => {
+    const keep = localStorage.getItem(KEEP_KEY) === "1";
+    setKeepChat(keep);
+    if (keep) {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const { messages: msgs, apiHistory } = JSON.parse(saved);
+          if (msgs?.length) {
+            setMessages(msgs);
+            apiHistoryRef.current = apiHistory ?? [];
+            setActive(true);
+          }
+        }
+      } catch {
+        // ignore corrupt storage
+      }
+    }
+  }, []);
+
+  // Persist history whenever messages change and keep-chat is on
+  useEffect(() => {
+    if (keepChat && messages.length > 0) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ messages, apiHistory: apiHistoryRef.current }));
+    }
+  }, [messages, keepChat]);
+
   useEffect(() => {
     if (logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight;
   }, [messages]);
+
+  function toggleKeep() {
+    const next = !keepChat;
+    setKeepChat(next);
+    localStorage.setItem(KEEP_KEY, next ? "1" : "0");
+    if (!next) localStorage.removeItem(STORAGE_KEY);
+  }
+
+  function reset() {
+    setMessages([]);
+    setActive(false);
+    apiHistoryRef.current = [];
+    localStorage.removeItem(STORAGE_KEY);
+  }
 
   function autoGrow() {
     const el = textareaRef.current;
@@ -248,6 +294,63 @@ export default function Chat() {
         onSubmit={(e) => { e.preventDefault(); submit(); }}
         style={{ position: "relative", zIndex: 2, width: "100%", maxWidth: 720, margin: "0 auto", display: "flex", flexDirection: "column", gap: "var(--s-3)" }}
       >
+        {/* Toolbar */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "var(--s-3)", paddingInline: "0.25rem" }}>
+          <label style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer", userSelect: "none" }}>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", letterSpacing: "0.04em", color: "var(--fg-faint)" }}>Keep chat</span>
+            <span
+              onClick={toggleKeep}
+              role="switch"
+              aria-checked={keepChat}
+              tabIndex={0}
+              onKeyDown={(e) => e.key === " " && toggleKeep()}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                width: 36,
+                height: 20,
+                borderRadius: 999,
+                background: keepChat ? "var(--accent)" : "var(--bg-2)",
+                border: "1px solid",
+                borderColor: keepChat ? "var(--accent)" : "var(--border)",
+                padding: 2,
+                cursor: "pointer",
+                transition: "background 0.2s, border-color 0.2s",
+                flexShrink: 0,
+              }}
+            >
+              <span style={{
+                width: 14,
+                height: 14,
+                borderRadius: "50%",
+                background: keepChat ? "var(--accent-fg)" : "var(--fg-faint)",
+                transform: keepChat ? "translateX(16px)" : "translateX(0)",
+                transition: "transform 0.2s, background 0.2s",
+                flexShrink: 0,
+              }} />
+            </span>
+          </label>
+          <button
+            type="button"
+            onClick={reset}
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.68rem",
+              letterSpacing: "0.04em",
+              color: "var(--fg-faint)",
+              background: "none",
+              border: "1px solid var(--border)",
+              borderRadius: "var(--r-full)",
+              padding: "0.2rem 0.65rem",
+              cursor: "pointer",
+              transition: "color 0.2s, border-color 0.2s",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = "var(--fg)"; e.currentTarget.style.borderColor = "var(--fg-faint)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = "var(--fg-faint)"; e.currentTarget.style.borderColor = "var(--border)"; }}
+          >
+            Reset
+          </button>
+        </div>
         <div style={{
           display: "flex",
           alignItems: "flex-end",
