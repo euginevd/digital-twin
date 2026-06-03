@@ -53,7 +53,7 @@ export default function Outcomes() {
               style={{
                 display: "grid",
                 gridTemplateColumns: "72px 1fr 1fr",
-                gap: "clamp(1.25rem, 3vw, 3rem)",
+                gap: "clamp(1rem, 3vw, 3rem)",
                 alignItems: "start",
                 padding: "clamp(1.75rem, 4vh, 2.5rem) 0",
                 borderBottom: "1px solid var(--border)",
@@ -72,18 +72,20 @@ export default function Outcomes() {
               }}>
                 {o.num}
               </span>
-              <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-3)" }}>
-                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "var(--fs-lg)", lineHeight: 1.3, letterSpacing: "-0.015em" }}>
-                  {o.title}
-                </h3>
-                <div>
-                  <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--fg-faint)", marginBottom: 4 }}>Challenge</p>
-                  <p style={{ fontSize: "0.875rem", color: "var(--fg-muted)", lineHeight: 1.65 }}>{o.challenge}</p>
+              <div className="outcome-body" style={{ display: "contents" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-3)" }}>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "var(--fs-lg)", lineHeight: 1.3, letterSpacing: "-0.015em" }}>
+                    {o.title}
+                  </h3>
+                  <div>
+                    <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--fg-faint)", marginBottom: 4 }}>Challenge</p>
+                    <p style={{ fontSize: "0.875rem", color: "var(--fg-muted)", lineHeight: 1.65 }}>{o.challenge}</p>
+                  </div>
                 </div>
-              </div>
-              <div style={{ paddingTop: 2 }}>
-                <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--fg-faint)", marginBottom: 4 }}>Outcome</p>
-                <p style={{ fontSize: "0.875rem", color: "var(--fg-muted)", lineHeight: 1.65 }}>{o.outcome}</p>
+                <div style={{ paddingTop: 2 }}>
+                  <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--fg-faint)", marginBottom: 4 }}>Outcome</p>
+                  <p style={{ fontSize: "0.875rem", color: "var(--fg-muted)", lineHeight: 1.65 }}>{o.outcome}</p>
+                </div>
               </div>
             </div>
           ))}

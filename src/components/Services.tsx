@@ -45,7 +45,7 @@ export default function Services() {
           I step in as an independent technical partner — turning complex cloud security risk into automated, code-first protection your teams can operate at scale.
         </p>
 
-        <div style={{
+        <div className="svc-grid-inner" style={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
           columnGap: "var(--s-4)",

@@ -96,9 +96,16 @@ section[id] { scroll-margin-top: 70px; }
 /* ============================================================
    OUTCOMES — responsive item grid
    ============================================================ */
-@media (max-width: 560px) {
+@media (max-width: 760px) {
   .outcome-item { grid-template-columns: 48px 1fr !important; }
 }
-@media (max-width: 420px) {
-  .outcome-item { grid-template-columns: 1fr !important; gap: var(--s-3) !important; }
+@media (max-width: 760px) {
+  .outcome-body { display: flex !important; flex-direction: column; gap: var(--s-4); grid-column: 2; }
+}
+@media (max-width: 560px) {
+  .outcome-item {
+    grid-template-columns: 1fr !important;
+    gap: var(--s-3) !important;
+  }
+  .outcome-body { grid-column: 1; }
 }
