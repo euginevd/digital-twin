@@ -57,6 +57,7 @@ section[id] { scroll-margin-top: 70px; }
    ============================================================ */
 @media (max-width: 760px) {
   .nav-center-links { display: none !important; }
+  .scroll-ind { display: none !important; }
 }
 
 /* ============================================================
@@ -66,10 +67,15 @@ section[id] { scroll-margin-top: 70px; }
   .hero-inner {
     grid-template-columns: 1fr !important;
     text-align: left;
+    padding-top: 6rem !important;
+    align-items: flex-start !important;
   }
   .hero-photo {
     order: -1;
-    width: clamp(160px, 45vw, 220px) !important;
+    width: clamp(100px, 28vw, 160px) !important;
+    aspect-ratio: 1/1 !important;
+    border-radius: 50% !important;
+    align-self: flex-start;
   }
 }
 
@@ -108,4 +114,28 @@ section[id] { scroll-margin-top: 70px; }
     gap: var(--s-3) !important;
   }
   .outcome-body { grid-column: 1; }
+}
+
+/* ============================================================
+   CHAT — suggestion chips wrap cleanly on mobile
+   ============================================================ */
+@media (max-width: 760px) {
+  #chat .ds-chip {
+    font-size: 0.75rem !important;
+    padding: 0.45rem 0.8rem !important;
+    width: 100%;
+    text-align: center;
+  }
+  #chat form { padding-inline: 0 !important; }
+}
+
+/* ============================================================
+   FOOTER — stack on mobile
+   ============================================================ */
+@media (max-width: 560px) {
+  footer > div {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: var(--s-4) !important;
+  }
 }
