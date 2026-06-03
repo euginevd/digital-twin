@@ -2,11 +2,17 @@ import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest } from "next/server";
 import { readFileSync } from "fs";
 import { join } from "path";
-import { retrieveContext } from "@/lib/rag";
 
 const client = new Anthropic();
 
+let knowledgeCache: string | null = null;
 let styleCache: string | null = null;
+
+function loadKnowledge(): string {
+  if (!knowledgeCache) knowledgeCache = readFileSync(join(process.cwd(), "context/knowledge.md"), "utf-8");
+  return knowledgeCache;
+}
+
 function loadStyle(): string {
   if (!styleCache) styleCache = readFileSync(join(process.cwd(), "context/style.md"), "utf-8");
   return styleCache;
@@ -15,26 +21,19 @@ function loadStyle(): string {
 export async function POST(req: NextRequest) {
   const { messages } = await req.json();
 
-  const lastUser = [...messages].reverse().find((m: { role: string }) => m.role === "user");
-  const query = lastUser?.content ?? "";
-
-  const [context, style] = await Promise.all([
-    retrieveContext(query),
-    Promise.resolve(loadStyle()),
-  ]);
-
   const stream = await client.messages.stream({
     model: "claude-haiku-4-5-20251001",
     max_tokens: 512,
     system: [
       {
         type: "text",
-        text: style,
+        text: loadKnowledge(),
         cache_control: { type: "ephemeral" },
       },
       {
         type: "text",
-        text: context,
+        text: loadStyle(),
+        cache_control: { type: "ephemeral" },
       },
     ],
     messages,
