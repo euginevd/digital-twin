@@ -2,18 +2,27 @@ import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest } from "next/server";
 import { readFileSync } from "fs";
 import { join } from "path";
+import { retrieveContext } from "@/lib/rag";
 
 const client = new Anthropic();
 
-function loadContext(): string {
-  const knowledge = readFileSync(join(process.cwd(), "context/knowledge.md"), "utf-8");
-  const style = readFileSync(join(process.cwd(), "context/style.md"), "utf-8");
-  return `${knowledge}\n\n---\n\n${style}`;
+function loadStyle(): string {
+  return readFileSync(join(process.cwd(), "context/style.md"), "utf-8");
 }
 
 export async function POST(req: NextRequest) {
   const { messages } = await req.json();
-  const systemPrompt = loadContext();
+
+  // Use the last user message as the retrieval query
+  const lastUser = [...messages].reverse().find((m: { role: string }) => m.role === "user");
+  const query = lastUser?.content ?? "";
+
+  const [context, style] = await Promise.all([
+    retrieveContext(query),
+    Promise.resolve(loadStyle()),
+  ]);
+
+  const systemPrompt = `${context}\n\n---\n\n${style}`;
 
   const stream = await client.messages.stream({
     model: "claude-haiku-4-5-20251001",
