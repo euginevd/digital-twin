@@ -93,12 +93,22 @@ export default function Chat() {
 
     const faqMatch = FAQS.find((f) => f.label === q || f.short === q);
     if (faqMatch) {
-      apiHistoryRef.current.push({ role: "assistant", content: faqMatch.answer });
-      setMessages((prev) =>
-        prev.map((m, i) => i === prev.length - 1 ? { role: "bot", text: faqMatch.answer } : m)
-      );
-      setBusy(false);
-      textareaRef.current?.focus();
+      const full = faqMatch.answer;
+      let i = 0;
+      const step = () => {
+        i += 3;
+        const chunk = full.slice(0, i);
+        setMessages((prev) =>
+          prev.map((m, idx) => idx === prev.length - 1 ? { role: "bot", text: chunk } : m)
+        );
+        if (i < full.length) requestAnimationFrame(step);
+        else {
+          apiHistoryRef.current.push({ role: "assistant", content: full });
+          setBusy(false);
+          textareaRef.current?.focus();
+        }
+      };
+      requestAnimationFrame(step);
       return;
     }
 
@@ -224,7 +234,14 @@ export default function Chat() {
                 Message Eugine →
               </a>
             </div>
-            <div style={{ display: "flex", gap: "var(--s-2)", flexWrap: "wrap", justifyContent: "center", marginTop: "var(--s-3)" }}>
+
+            <div style={{ width: "100%", maxWidth: 400, display: "flex", alignItems: "center", gap: "var(--s-3)", marginTop: "var(--s-6)" }}>
+              <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--fg-faint)", whiteSpace: "nowrap" }}>Ask me anything</span>
+              <div style={{ flex: 1, height: 1, background: "var(--border)" }} />
+            </div>
+
+            <div style={{ display: "flex", gap: "var(--s-2)", flexWrap: "wrap", justifyContent: "center", marginTop: "var(--s-4)" }}>
               {FAQS.map((s) => (
                 <button
                   key={s.label}

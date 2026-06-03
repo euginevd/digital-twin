@@ -6,21 +6,39 @@ export interface Faq {
 
 export const FAQS: Faq[] = [
   {
-    short: "Walk me through a Zero Trust architecture",
-    label: "Walk me through a Zero Trust architecture you've designed.",
+    short: "What does hands-on mean at architect level?",
+    label: "What does hands-on mean to you at architect level?",
     answer:
-      "The most substantial one I've delivered was a hub-and-spoke Zero Trust network on AWS Landing Zone Accelerator across 70+ accounts for a large enterprise. The core principle was: no implicit trust based on network location — every request is authenticated, authorised, and encrypted regardless of where it originates. Practically, that meant centralised egress inspection via AWS Network Firewall, east-west traffic control between workload accounts, Cloudflare WAF in front of 300+ web apps and APIs for north-south, and identity-aware access layered on top via Entra ID Conditional Access. The hard part isn't the technology — it's getting the network and identity teams aligned on a shared trust model and then operationalising it so the security controls don't become a bottleneck for delivery teams.",
+      "It means I'm in the Terraform, reviewing the pipeline config, and sitting with the engineering team when something breaks — not handing off a design doc and disappearing. Architecture that no one can implement isn't architecture, it's just slides.",
   },
   {
-    short: "Security in a DevSecOps pipeline",
-    label: "How do you embed security into a DevSecOps pipeline?",
+    short: "How do you approach a new client environment?",
+    label: "How do you approach a new client's cloud environment?",
     answer:
-      "I treat it as shifting controls left rather than bolting on gates at the end. In practice that means SAST and SCA running in the IDE and on every PR — developers get feedback before code merges, not after it's in production. IaC scanning (Checkov, tfsec) catches misconfigured infrastructure before it's deployed. DAST runs against staging environments as part of the release pipeline. Container images are scanned on build and again at runtime via the CNAPP layer. The cultural side matters as much as the tooling — security findings need to be actionable and low-noise, otherwise developers learn to ignore them. I tune policies to surface high-signal findings first and route them to the right owner so the pipeline stays fast.",
+      "First two weeks are always listen and observe — I map what's actually running, not what the diagrams say, and find the gaps between assumed and real security posture. Then I prioritise by blast radius: what would hurt most if it failed, and fix that first.",
   },
   {
-    short: "Cloud security outcomes you've delivered",
-    label: "What cloud security outcomes have you delivered for enterprise clients?",
+    short: "Hardest security problem you've solved?",
+    label: "What's the hardest security problem you've solved?",
     answer:
-      "A few that stand out: the Zero Trust network across 70+ AWS accounts I mentioned — that moved an enterprise from flat network trust to full micro-segmentation with centralised inspection. A Microsoft security uplift across M365, Entra ID, Defender XDR and Intune that reduced high-risk findings by around 70% — the big wins were Conditional Access policy redesign and privileged identity governance. And a critical infrastructure engagement where I remediated active ransomware risk and privilege-escalation paths across IT/OT, aligned to the Australian Essential Eight. Across all of them the common thread is translating security requirements into engineering outcomes — not just producing a report, but working with the teams until the controls are actually in place and working.",
+      "Redesigning the network architecture for 80+ AWS accounts at University of Sydney while clinical research systems stayed live — zero downtime, protected data, teams still shipping. The hard part was sequencing the cutover so nothing broke and no one noticed.",
+  },
+  {
+    short: "Where are you headed next?",
+    label: "Where are you headed next in your career?",
+    answer:
+      "Deeper into AI security — as organisations move LLMs into production, the security controls aren't keeping pace, and that's where I want to be. The right role is somewhere security is genuinely valued, not treated as a compliance checkbox.",
+  },
+  {
+    short: "Sectors & regions?",
+    label: "What sectors and regions have you worked across?",
+    answer:
+      "Telecommunications, media, government, financial services, higher education, and critical infrastructure — across Australia, UAE, Qatar, and the US. That breadth means I've seen how security scales (and fails) across very different regulatory and operational environments.",
+  },
+  {
+    short: "What sets you apart?",
+    label: "What makes you different from other security architects?",
+    answer:
+      "I'm hands-on from design through to delivery — I don't disappear after the architecture review. I see my role as an enabler: I work with engineering teams, not around them, so security actually lands rather than sitting in a backlog.",
   },
 ];
