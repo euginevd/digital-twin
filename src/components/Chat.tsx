@@ -3,25 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-const PERSONA = `You are the AI assistant for Eugine Dsylva, a Cloud Security Architect based in Sydney, Australia. You answer on his behalf, in first person, as Eugine.
-
-BACKGROUND:
-- Security Architect across cloud, infrastructure and network; hands-on from design through delivery.
-- ~6 years focused on cloud-native security at enterprise scale in Australia; earlier work in regulated environments in the UAE and Qatar.
-- Zero Trust hub-and-spoke on AWS LZA across 70+ accounts; secured 300+ web apps and APIs via Cloudflare WAF and AWS Network Firewall.
-- CNAPP-aligned guardrails across Kubernetes, multi-cloud AWS/Azure and serverless; embedded AppSec (SAST/SCA/DAST/IaC) into CI/CD and GitOps.
-- Microsoft 365 / Entra ID / Defender XDR / Intune uplift — ~70% reduction in high-risk findings.
-- Remediated ransomware and privilege-escalation risk across SOCI critical-infrastructure IT/OT aligned to Essential Eight.
-- Current focus: CNAPP operationalisation and AI Security Posture Management.
-- Certs: CISSP, CISA, AWS Solutions Architect Professional, Azure Solutions Architect Expert, AWS Security Specialty, AWS DevOps Pro, AWS Advanced Networking, Azure Security Engineer, TOGAF, CCIE Security, MSc Information Systems Security.
-- Open to select architecture engagements and the right full-time role.
-
-STYLE: concise and confident (2-4 sentences). Professional, plain-spoken, no hype. If asked something you can't know, say so briefly and offer to connect directly via LinkedIn or email. Keep it to the security/architecture domain; gently redirect off-topic questions.`;
 
 interface Message {
   role: "user" | "bot";
   text: string;
   typing?: boolean;
+}
+
+interface ApiMessage {
+  role: "user" | "assistant";
+  content: string;
 }
 
 const SUGGESTIONS = [
@@ -37,7 +28,7 @@ export default function Chat() {
   const [busy, setBusy] = useState(false);
   const logRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const historyRef = useRef<string[]>([]);
+  const apiHistoryRef = useRef<ApiMessage[]>([]);
 
   useEffect(() => {
     if (logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight;
@@ -55,21 +46,41 @@ export default function Chat() {
     setBusy(true);
     setActive(true);
     const userMsg: Message = { role: "user", text: q };
-    historyRef.current.push("Visitor: " + q);
+    apiHistoryRef.current.push({ role: "user", content: q });
     setMessages((prev) => [...prev, userMsg, { role: "bot", text: "thinking…", typing: true }]);
 
     try {
-      const w = window as typeof window & { claude?: { complete: (p: string) => Promise<string> } };
-      if (!w.claude?.complete) throw new Error("offline");
-      const prompt = PERSONA + "\n\nConversation so far:\n" + historyRef.current.join("\n") + "\n\nRespond as Eugine (first person, concise):";
-      const reply = await w.claude.complete(prompt);
-      const text = (reply || "").trim() || "Good question — let's discuss the specifics directly.";
-      historyRef.current.push("Eugine: " + text);
-      setMessages((prev) => prev.map((m, i) => i === prev.length - 1 ? { role: "bot", text } : m));
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: apiHistoryRef.current }),
+      });
+
+      if (!res.ok) throw new Error("api_error");
+
+      const reader = res.body!.getReader();
+      const decoder = new TextDecoder();
+      let text = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        text += decoder.decode(value, { stream: true });
+        const snapshot = text;
+        setMessages((prev) =>
+          prev.map((m, i) => i === prev.length - 1 ? { role: "bot", text: snapshot } : m)
+        );
+      }
+
+      const finalText = text.trim() || "Good question — let's discuss the specifics directly.";
+      apiHistoryRef.current.push({ role: "assistant", content: finalText });
+      setMessages((prev) =>
+        prev.map((m, i) => i === prev.length - 1 ? { role: "bot", text: finalText } : m)
+      );
     } catch {
       setMessages((prev) => prev.map((m, i) =>
         i === prev.length - 1
-          ? { role: "bot", text: "I can't reach my live brain in this preview — but happy to talk directly. Reach me on LinkedIn or at euginevd@gmail.com." }
+          ? { role: "bot", text: "I can't reach my live brain right now — reach me on LinkedIn or at euginevd@gmail.com." }
           : m
       ));
     } finally {
