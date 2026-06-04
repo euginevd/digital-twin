@@ -57,7 +57,6 @@ section[id] { scroll-margin-top: 70px; }
    ============================================================ */
 @media (max-width: 760px) {
   .nav-center-links { display: none !important; }
-  .scroll-ind { display: none !important; }
 }
 
 /* ============================================================

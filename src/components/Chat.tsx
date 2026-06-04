@@ -306,6 +306,27 @@ export default function Chat() {
               padding: "var(--s-2) var(--s-1) var(--s-5)",
             }}
           >
+            <div style={{ display: "flex", justifyContent: "flex-start" }}>
+              <button
+                onClick={() => setActive(false)}
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.68rem",
+                  letterSpacing: "0.04em",
+                  color: "var(--fg-faint)",
+                  background: "none",
+                  border: "1px solid var(--border)",
+                  borderRadius: "var(--r-full)",
+                  padding: "0.2rem 0.65rem",
+                  cursor: "pointer",
+                  transition: "color 0.2s, border-color 0.2s",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = "var(--fg)"; e.currentTarget.style.borderColor = "var(--fg-faint)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = "var(--fg-faint)"; e.currentTarget.style.borderColor = "var(--border)"; }}
+              >
+                ← Back
+              </button>
+            </div>
             {messages.map((m, i) => (
               <div
                 key={i}
