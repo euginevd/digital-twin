@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import ReactMarkdown from "react-markdown";
 import { FAQS } from "@/lib/faq";
 
 
@@ -234,14 +235,11 @@ export default function Chat() {
             }}>
               <Image src="/avatar.webp" alt="Eugine Dsylva" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
             </div>
-            <span style={{ fontFamily: "var(--font-mono)", color: "var(--accent)", letterSpacing: "0.18em", fontSize: "var(--fs-mono)", textTransform: "uppercase" }}>
-              Digital Twin — Live Demo
-            </span>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "var(--fs-3xl)", lineHeight: 1.04 }}>
               Meet my <span style={{ color: "var(--accent)" }}>Digital Twin</span>.
             </h2>
             <p style={{ color: "var(--fg-muted)", maxWidth: "48ch", fontSize: "var(--fs-lg)", lineHeight: 1.55 }}>
-              This is an AI built to represent me. Ask it about my work, book time, or send me a direct message.
+              This is an AI built and trained to represent me. Ask it about my background and work, book a meeting, or send me a direct message — I'd like to hear from you.
             </p>
 
 
@@ -327,7 +325,11 @@ export default function Chat() {
                   ...(m.typing ? { fontSize: "0.8rem" } : {}),
                 }}
               >
-                {m.text}
+                {m.role === "bot" && !m.typing ? (
+                  <ReactMarkdown>{m.text}</ReactMarkdown>
+                ) : (
+                  m.text
+                )}
               </div>
             ))}
           </div>

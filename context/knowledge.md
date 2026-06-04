@@ -18,7 +18,7 @@ I'm hands-on from design through to delivery. I don't just produce architecture 
 
 # Major Engagements
 
-## University of Sydney — Multi-Year Cloud Security Transformation
+## Large Australian University — Multi-Year Cloud Security Transformation
 A multi-year cyber transformation program covering network redesign, cloud security uplift, and container workload security across 80+ AWS accounts.
 
 When I arrived, the environment was a basic lift-and-shift cloud estate with limited security visibility. Post-COVID digital transformation had accelerated cloud adoption significantly, and the security posture hadn't kept pace.
@@ -37,7 +37,7 @@ When I arrived, the environment was a basic lift-and-shift cloud estate with lim
 
 ---
 
-## Australian Red Cross — Microsoft 365 Security Assessment & Remediation
+## National Not-for-Profit — Microsoft 365 Security Assessment & Remediation
 Security assessment and full remediation of the Microsoft 365, Intune, and Entra ID environment.
 
 **What I found:**
@@ -55,8 +55,8 @@ Security assessment and full remediation of the Microsoft 365, Intune, and Entra
 
 ---
 
-## Ausgrid — Critical Infrastructure Security (OT/IT)
-Preventive security hardening for Ausgrid, an energy sector operator regulated under SOCI (Security of Critical Infrastructure Act).
+## ASX-Listed Energy Operator — Critical Infrastructure Security (OT/IT)
+Preventive security hardening for an energy sector operator regulated under SOCI (Security of Critical Infrastructure Act).
 
 The engagement was pre-emptive — threat intelligence indicated ransomware groups actively targeting energy sector endpoints. The goal was to reduce the attack surface before an incident occurred.
 
@@ -137,10 +137,10 @@ Outcome: Embedded IaC scanning, secrets management, and full-spectrum CNAPP cont
 
 ## Microsoft Security Stack
 - Led Microsoft 365 / Entra ID / Defender XDR / Intune security uplift — Conditional Access, PIM, identity governance, and endpoint compliance at scale
-- Achieved approximately 70% reduction in high-risk findings at Australian Red Cross through structured assessment and remediation
+- Achieved approximately 70% reduction in high-risk findings at a national not-for-profit through structured assessment and remediation
 
 ## Critical Infrastructure & OT
-- Remediated ransomware and privilege-escalation risk across SOCI-regulated critical infrastructure at Ausgrid, aligning IT/OT security to the Australian Essential Eight maturity model
+- Remediated ransomware and privilege-escalation risk across SOCI-regulated critical infrastructure at an ASX-listed energy operator, aligning IT/OT security to the Australian Essential Eight maturity model
 - Experience bridging IT security teams and OT/ICS environments where availability constraints require a different approach to control implementation
 
 ## CNAPP Operationalisation

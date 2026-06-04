@@ -6,39 +6,39 @@ export interface Faq {
 
 export const FAQS: Faq[] = [
   {
-    short: "What does hands-on mean at architect level?",
-    label: "What does hands-on mean to you at architect level?",
+    short: "Which sectors have you worked in?",
+    label: "Which sectors and regions have you worked with?",
     answer:
-      "It means I'm in the Terraform, reviewing the pipeline config, and sitting with the engineering team when something breaks — not handing off a design doc and disappearing. Architecture that no one can implement isn't architecture, it's just slides.",
+      "Most of my recent work has been across higher education, energy, and NSW government here in Australia, with earlier roles in Qatar, the UAE, and the US spanning media, telecoms, banking, and healthcare. Four countries, but the security fundamentals travel well.",
   },
   {
-    short: "How do you approach a new client environment?",
-    label: "How do you approach a new client's cloud environment?",
+    short: "How did you get into cybersecurity?",
+    label: "How did you get into cybersecurity?",
     answer:
-      "First two weeks are always listen and observe — I map what's actually running, not what the diagrams say, and find the gaps between assumed and real security posture. Then I prioritise by blast radius: what would hurt most if it failed, and fix that first.",
+      "I started in computer networks straight out of a commerce degree, and security became the natural layer as I moved through infrastructure, systems engineering, and architecture. I never made a deliberate pivot — I just stayed in a lane I enjoyed and it kept evolving.",
   },
   {
-    short: "Hardest security problem you've solved?",
-    label: "What's the hardest security problem you've solved?",
+    short: "What are you working on right now?",
+    label: "What are you currently working on?",
     answer:
-      "Redesigning the network architecture for 80+ AWS accounts at University of Sydney while clinical research systems stayed live — zero downtime, protected data, teams still shipping. The hard part was sequencing the cutover so nothing broke and no one noticed.",
+      "Most of my focus right now is cloud security guardrails across AWS and Azure using Wiz — covering the full CNAPP stack and increasingly AI security posture. Cloud security and cloud cost are more connected than most teams realise, so FinOps sits alongside that work too.",
   },
   {
-    short: "Where are you headed next?",
-    label: "Where are you headed next in your career?",
+    short: "Where are you taking your career?",
+    label: "Where are you taking your career in the next year?",
     answer:
-      "Deeper into AI security — as organisations move LLMs into production, the security controls aren't keeping pace, and that's where I want to be. The right role is somewhere security is genuinely valued, not treated as a compliance checkbox.",
+      "My focus is on helping enterprises secure AI — most organisations are adopting it faster than they can assess the risk, and there's a real gap between what security teams know and what's actually being deployed. I want to be hands-on in that space, building and securing AI systems rather than just writing policies about them.",
   },
   {
-    short: "Sectors & regions?",
-    label: "What sectors and regions have you worked across?",
+    short: "What sets you apart from others?",
+    label: "What sets you apart from other security architects?",
     answer:
-      "Telecommunications, media, government, financial services, higher education, and critical infrastructure — across Australia, UAE, Qatar, and the US. That breadth means I've seen how security scales (and fails) across very different regulatory and operational environments.",
+      "I come from a networks and systems background, so I understand how things are built before I think about securing them — and I stay hands-on through delivery, not just the design phase. I'm pragmatic, I coach teams rather than just deliver and move on, and I take ownership of outcomes.",
   },
   {
-    short: "What sets you apart?",
-    label: "What makes you different from other security architects?",
+    short: "What are you like to work with?",
+    label: "What are you like to work with?",
     answer:
-      "I'm hands-on from design through to engineering — I don't disappear after the architecture review. I see my role as an enabler: I work with engineering teams, not around them, so security actually lands rather than sitting in a backlog.",
+      "Direct and low on politics — I'll flag problems early and I'd rather have an uncomfortable conversation upfront than a bigger one later. I work across technical and business stakeholders without needing much hand-holding once the objective is clear.",
   },
 ];
