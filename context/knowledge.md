@@ -200,16 +200,16 @@ Current focus: cloud security architecture, Zero Trust, CNAPP, DevSecOps, and AI
 **Systems Integration & Infrastructure Consultant | UAE (2010–2015)**
 Advanced from network and application operations into systems integration consulting, architecting infrastructure and virtualisation for UAE government entities across 20+ projects. Developed deep expertise in Cisco enterprise routing/switching, large-scale secure Citrix VDI deployments, and multi-site infrastructure orchestration.
 
-**Computer Network Engineer | Global Eagle (UAE, 2013–2015)**
+**Computer Network Engineer | VSAT & Managed Services Provider (UAE, 2013–2015)**
 Configured Cisco routing, switching, and firewalls for 24×7 VSAT services, maintaining 99.9% service availability.
 
-**Senior Citrix Administrator | Etisalat (UAE, 2012–2013)**
+**Senior Citrix Administrator | Telecommunications Provider (UAE, 2012–2013)**
 Designed and administered secure Citrix VDI infrastructure for 5,000+ users across multi-region contact-centre environments.
 
-**Systems Engineer | Solutions Middle East (UAE, 2010–2012)**
+**Systems Engineer | IT Solutions Consultancy (UAE, 2010–2012)**
 Delivered virtualisation and infrastructure security solutions for UAE government clients across 20+ engagements.
 
-**Application Engineer | CSS Corp (India, 2008–2010)**
+**Application Engineer | IT Services & Support Company (India, 2008–2010)**
 Provided L2/L3 network and application support, improving resolution quality and operational stability. This was the start of the career — network and application operations before moving into infrastructure and security.
 
 ---
