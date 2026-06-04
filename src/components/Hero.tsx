@@ -85,7 +85,7 @@ export default function Hero() {
           flexShrink: 0,
         }}>
           <Image
-            src="/avatar.webp"
+            src="/avatar-edited.webp"
             alt="Eugine Dsylva"
             fill
             sizes="(max-width: 768px) 45vw, 340px"

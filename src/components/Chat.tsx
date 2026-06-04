@@ -233,7 +233,7 @@ export default function Chat() {
               position: "relative",
               flexShrink: 0,
             }}>
-              <Image src="/avatar.webp" alt="Eugine Dsylva" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
+              <Image src="/avatar-circle.webp" alt="Eugine Dsylva" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
             </div>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "var(--fs-3xl)", lineHeight: 1.04 }}>
               Meet my <span style={{ color: "var(--accent)" }}>Digital Twin</span>.
