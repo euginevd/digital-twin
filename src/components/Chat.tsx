@@ -266,7 +266,7 @@ export default function Chat() {
             </div>
 
             <div style={{ display: "flex", gap: "var(--s-2)", flexWrap: "wrap", justifyContent: "center", marginTop: "var(--s-4)" }}>
-              {FAQS.map((s) => (
+              {FAQS.slice(0, 3).map((s) => (
                 <button
                   key={s.label}
                   className="ds-chip"
@@ -347,7 +347,11 @@ export default function Chat() {
                 }}
               >
                 {m.role === "bot" && !m.typing ? (
-                  <ReactMarkdown>{m.text}</ReactMarkdown>
+                  <ReactMarkdown
+                    components={{
+                      p: ({ children, ...props }) => <p {...props} style={{ margin: "0 0 0.75em", lineHeight: "inherit" }} className="chat-p">{children}</p>,
+                    }}
+                  >{m.text}</ReactMarkdown>
                 ) : (
                   m.text
                 )}
