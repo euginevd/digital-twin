@@ -21,12 +21,21 @@ interface ApiMessage {
 const STORAGE_KEY = "chat_history";
 const KEEP_KEY = "chat_keep";
 
+type ModelId = "claude" | "openai" | "gemini";
+
+const MODELS: { id: ModelId; label: string; icon: string; soon?: boolean }[] = [
+  { id: "claude", label: "Claude", icon: "⬡" },
+  { id: "openai", label: "ChatGPT", icon: "◎" },
+  { id: "gemini", label: "Gemini", icon: "✦", soon: true },
+];
+
 export default function Chat() {
   const [active, setActive] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const [keepChat, setKeepChat] = useState(false);
+  const [model, setModel] = useState<ModelId>("claude");
   const logRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const apiHistoryRef = useRef<ApiMessage[]>([]);
@@ -143,7 +152,7 @@ export default function Chat() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: apiHistoryRef.current }),
+        body: JSON.stringify({ messages: apiHistoryRef.current, model }),
       });
 
       if (!res.ok) throw new Error("api_error");
@@ -497,10 +506,75 @@ export default function Chat() {
             </svg>
           </button>
         </div>
-        <div style={{ textAlign: "center", fontFamily: "var(--font-mono)", fontSize: "0.68rem", color: "var(--fg-faint)", letterSpacing: "0.03em", display: "flex", gap: "var(--s-2)", justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
-          <span style={{ opacity: 0.5 }}>Press</span>
-          <kbd style={{ fontFamily: "var(--font-mono)", fontSize: "0.64rem", background: "var(--bg-2)", border: "1px solid var(--border)", borderRadius: 4, padding: "0.1rem 0.35rem", color: "var(--fg-muted)" }}>Enter</kbd>
-          <span style={{ opacity: 0.5 }}>to send &nbsp;·&nbsp; Shift+Enter for new line</span>
+        {/* Model switcher */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "var(--s-2)", flexWrap: "wrap" }}>
+          {MODELS.map((m) => {
+            const isSelected = model === m.id;
+            if (m.soon) {
+              return (
+                <span
+                  key={m.id}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.4rem",
+                    padding: "0.25rem 0.75rem",
+                    borderRadius: "var(--r-full)",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.68rem",
+                    letterSpacing: "0.04em",
+                    border: "1px solid var(--border)",
+                    background: "var(--bg-1)",
+                    color: "var(--fg-faint)",
+                    opacity: 0.4,
+                    cursor: "default",
+                    userSelect: "none",
+                  }}
+                >
+                  <span aria-hidden="true">{m.icon}</span>
+                  {m.label} · soon
+                </span>
+              );
+            }
+            return (
+              <button
+                key={m.id}
+                type="button"
+                onClick={() => setModel(m.id)}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.4rem",
+                  padding: "0.25rem 0.75rem",
+                  borderRadius: "var(--r-full)",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.68rem",
+                  letterSpacing: "0.04em",
+                  cursor: "pointer",
+                  border: "1px solid",
+                  borderColor: isSelected ? "var(--accent-line)" : "var(--border)",
+                  background: isSelected ? "var(--accent-soft)" : "var(--bg-1)",
+                  color: isSelected ? "var(--accent)" : "var(--fg-faint)",
+                  transition: "border-color 0.2s, color 0.2s, background 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  if (!isSelected) {
+                    e.currentTarget.style.borderColor = "var(--fg-faint)";
+                    e.currentTarget.style.color = "var(--fg-muted)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (model !== m.id) {
+                    e.currentTarget.style.borderColor = "var(--border)";
+                    e.currentTarget.style.color = "var(--fg-faint)";
+                  }
+                }}
+              >
+                <span aria-hidden="true">{m.icon}</span>
+                {m.label}
+              </button>
+            );
+          })}
         </div>
       </form>
     </section>
